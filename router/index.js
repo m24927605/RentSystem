@@ -1,7 +1,8 @@
 'use strict';
 
 const routes=[
-  require('./RentDetail')
+  require('./RentDetail'),
+  require('./UserDetail')
 ];
 
 module.exports = function router(app,db){

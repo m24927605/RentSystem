@@ -11,13 +11,13 @@ module.exports = function (sequelize, DataTypes) {
       RentMonthly: { type: DataTypes.DECIMAL, allowNull: true,  comment:'房租費用' },
       EnterDate: { type: DataTypes.DATE, allowNull: true,  comment:'入住日期' },
       LeaveDate: { type: DataTypes.DATE, allowNull: true,  comment:'搬出日期' },
-      Status: { type: DataTypes.CHAR, allowNull: true,  comment:'狀態' },
-      CreateUser: { type: DataTypes.STRING, allowNull: true,  comment:'資料創始者' },
+      Status: { type: DataTypes.CHAR(2), allowNull: true,  comment:'狀態' },
+      CreateUser: { type: DataTypes.STRING(255), allowNull: true,  comment:'資料創始者' },
       CreateDate: { type: DataTypes.DATE, allowNull: true,  comment:'資料創始日期' },
-      ModifyUser: { type: DataTypes.STRING, allowNull: true,  comment:'資料創始者' },
-      ModifyDate: { type: DataTypes.DATE, allowNull: true,  comment:'資料創始日期' }
-    },
-    {
+      ModifyUser: { type: DataTypes.STRING(255), allowNull: true,  comment:'資料調整者' },
+      ModifyDate: { type: DataTypes.DATE, allowNull: true,  comment:'資料調整日期' }
+  },
+  {
       timestamps: false,
       freezeTableName: true,
       tableName: 'RentDetail',
