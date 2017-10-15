@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const db = require('./models/index');
 const router = require('./router/index');
-
+const colors = require('colors');
 const app = express();
 
 // view engine setup
@@ -30,8 +30,8 @@ router(app, db);
 
 //drop and resync with { force: true }
 db.sequelize.sync().then(() => {
-  console.log('資料庫已啟動');
-  
+  const msg=`資料庫已連線並準備完畢`;
+  console.log(colors.green('系統訊息: %s'), msg);
 });
 
 // catch 404 and forward to error handler
