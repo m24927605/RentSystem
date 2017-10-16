@@ -4,7 +4,7 @@ module.exports = function (sequelize, DataTypes) {
   const RentDetail = sequelize.define('RentDetail', {
       RoomID:{type:DataTypes.INTEGER, autoIncrement:true, primaryKey : true, unique : true},
       RoomNo: { type: DataTypes.INTEGER,  allowNull: true, comment:'房號' },
-      RoomUserID: { type: DataTypes.INTEGER, allowNull: true, comment:'房客ID' },
+      UserID: { type: DataTypes.INTEGER , comment:'房客ID' },
       RentStartDate: { type: DataTypes.DATE, allowNull: true,  comment:'租屋起始日期' },
       RentEndDate: { type: DataTypes.DATE, allowNull: true,  comment:'租屋結束日期' },
       PowerUnitCost: { type: DataTypes.DECIMAL, allowNull: true,  comment:'每度電單價' },

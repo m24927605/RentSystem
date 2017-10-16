@@ -33,4 +33,12 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+//Relations
+db.RentDetail.belongsTo(db.UserDetail,{foreignKey: 'UserID'});  
+db.UserDetail.hasMany(db.RentDetail,{foreignKey: 'UserID'});  
+db.PayFlow.belongsTo(db.UserDetail,{foreignKey: 'UserID'});  
+db.UserDetail.hasMany(db.PayFlow,{foreignKey: 'UserID'});
+db.PayFlow.belongsTo(db.RentDetail,{foreignKey: 'UserID'});  
+db.RentDetail.hasMany(db.PayFlow,{foreignKey: 'UserID'});
+
 module.exports = db;

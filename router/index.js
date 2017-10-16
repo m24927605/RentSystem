@@ -2,7 +2,8 @@
 
 const routes=[
   require('./RentDetail'),
-  require('./UserDetail')
+  require('./UserDetail'),
+  require('./PayFlow')
 ];
 
 module.exports = function router(app,db){

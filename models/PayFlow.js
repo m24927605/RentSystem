@@ -3,8 +3,7 @@
 module.exports = function (sequelize, DataTypes) {
   const PayFlow = sequelize.define('PayFlow', {
         ID:{type:DataTypes.INTEGER, autoIncrement:true, primaryKey : true, unique : true},
-        UserID: { type: DataTypes.INTEGER,  allowNull: true, references: {
-            model: 'UserDetail',key: 'UserID'}, comment:'租客ID' },        
+        UserID: { type: DataTypes.INTEGER,  allowNull: true, comment:'租客ID' },        
         PowerQty: { type: DataTypes.FLOAT, allowNull: true, comment:'使用度數' },
         Payment: { type: DataTypes.DECIMAL(18,0),  allowNull: true, comment:'總費用' },
         PeriodOfPayment: { type: DataTypes.DATE,  allowNull: true, comment:'支付期別' },
@@ -18,12 +17,7 @@ module.exports = function (sequelize, DataTypes) {
       freezeTableName: true,
       tableName: 'PayFlow',
       charset: 'utf8',
-      collate: 'utf8_general_ci',
-      indexes: [{
-        name:'UserDetail_UserID',
-        method: 'BTREE',
-       fields: ['UserID']
-      }]
+      collate: 'utf8_general_ci'
   });
   return PayFlow;
   }

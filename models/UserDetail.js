@@ -3,8 +3,7 @@
 module.exports = function (sequelize, DataTypes) {
   const UserDetail = sequelize.define('UserDetail', {
         UserID:{type:DataTypes.INTEGER, autoIncrement:true, primaryKey : true, unique : true},
-        RoomID: { type: DataTypes.INTEGER,  allowNull: true, references: {
-            model: 'RentDetail',key: 'RoomID'}, comment:'房號ID' },        
+        RoomID: { type: DataTypes.INTEGER,  allowNull: true,  comment:'房號ID' },        
         UserName: { type: DataTypes.STRING(255), allowNull: true, comment:'姓名' },
         Birth: { type: DataTypes.DATE,  allowNull: true, comment:'出生日期' },
         IDCardNo: { type: DataTypes.CHAR(10),  allowNull: true, comment:'身分證字號' },
@@ -23,12 +22,7 @@ module.exports = function (sequelize, DataTypes) {
       freezeTableName: true,
       tableName: 'UserDetail',
       charset: 'utf8',
-      collate: 'utf8_general_ci',
-      indexes: [{
-        name: 'RentDetail_RoomID',
-        method: 'BTREE',
-       fields: ['RoomID']
-      }]
+      collate: 'utf8_general_ci'
   });
   return UserDetail;
   }

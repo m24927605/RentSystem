@@ -2,7 +2,18 @@
 
 module.exports = (app,db)=>{
     app.get('/RentDetail',(req,res)=>{
-        db.RentDetail.findAll()
+        db.RentDetail.findAll({
+            include:[
+                {
+                    model:db.UserDetail,
+                    include:[
+                        {
+                            model:db.PayFlow
+                        }
+                    ]
+                }
+            ]
+        })
         .then(rentDetail=>{
             res.json(rentDetail);
         });
