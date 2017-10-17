@@ -5,12 +5,7 @@ module.exports = (app,db)=>{
         db.UserDetail.findAll({
             include:[
                 {
-                    model:db.RentDetail,
-                    include:[
-                        {
-                            model:db.PayFlow
-                        }
-                    ]
+                    model:db.RentDetail
                 }
             ]
         })

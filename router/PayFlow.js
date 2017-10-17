@@ -2,15 +2,10 @@
 
 module.exports = (app,db)=>{
     app.get('/PayFlow',(req,res)=>{
-        db.UserDetail.findAll({
+        db.PayFlow.findAll({
             include:[
                 {
-                    model:db.RentDetail,
-                    include:[
-                        {
-                            model:db.UserDetail
-                        }
-                    ]
+                    model:db.UserDetail
                 }
             ]
         })
