@@ -30,19 +30,19 @@ router(app, db);
 
 //drop and resync with { force: true }
 db.sequelize.sync().then(() => {
-  const msg=`資料庫已連線並準備完畢`;
+  const msg = `資料庫已連線並準備完畢`;
   console.log(colors.green('系統訊息: %s'), msg);
 });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

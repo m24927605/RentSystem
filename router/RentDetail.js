@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (app, db) => {
-    const moment=require('moment');
+    const moment = require('moment');
     app.get('/RentDetail', (req, res) => {
         db.RentDetail.findAll({
             include: [
@@ -60,11 +60,11 @@ module.exports = (app, db) => {
                 console.log("db RentDetail create Successfully");
                 res.json(result);
             })
-            .catch(function(error){
-                console.error("db RentDetail create error happened",error);
+            .catch(function (error) {
+                console.error("db RentDetail create error happened", error);
             })
             ;
-    }); 
+    });
 
     app.patch('/RentDetail/:id', (req, res) => {
 
