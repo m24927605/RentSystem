@@ -53,7 +53,7 @@ module.exports = (app, db) => {
             ModifyUser: req.body.ModifyUser,
             ModifyDate: moment(`${ModifyDate}`).format('YYYY-MM-DD HH:mm:ss.SSS')
         };
-        //console.log(JSON.stringify(newRent));
+
         db.RentDetail
             .create(newRent)
             .then(function (result) {
@@ -62,8 +62,7 @@ module.exports = (app, db) => {
             })
             .catch(function (error) {
                 console.error("db RentDetail create error happened", error);
-            })
-            ;
+            });
     });
 
     app.patch('/RentDetail/:id', (req, res) => {
