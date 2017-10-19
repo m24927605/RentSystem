@@ -2,13 +2,14 @@
 
 module.exports = (app, db) => {
     app.get('/PayFlow', (req, res) => {
-        db.PayFlow.findAll({
-            include: [
-                {
-                    model: db.UserDetail
-                }
-            ]
-        })
+        db.PayFlow
+            .findAll({
+                include: [
+                    {
+                        model: db.UserDetail
+                    }
+                ]
+            })
             .then(payFlow => {
                 res.json(payFlow);
             });
@@ -16,9 +17,10 @@ module.exports = (app, db) => {
 
     app.get('/PayFlow/:id', (req, res) => {
         const id = req.params.id;
-        db.PayFlow.find({
-            where: { ID: id }
-        })
+        db.PayFlow
+            .find({
+                where: { ID: id }
+            })
             .then(payFlow => {
                 res.json(payFlow);
             });
@@ -34,9 +36,10 @@ module.exports = (app, db) => {
 
     app.delete('/PayFlow/:id', (req, res) => {
         const id = req.params.id;
-        db.PayFlow.destroy({
-            where: { ID: id }
-        })
+        db.PayFlow
+            .destroy({
+                where: { ID: id }
+            })
             .then(deletePayFlow => {
                 res.json(deletePayFlow);
             });

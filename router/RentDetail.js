@@ -72,9 +72,10 @@ module.exports = (app, db) => {
 
     app.delete('/RentDetail/:id', (req, res) => {
         const id = req.params.id;
-        db.RentDetail.destroy({
-            where: { id: id }
-        })
+        db.RentDetail
+            .destroy({
+                where: { id: id }
+            })
             .then(deleteRentDetail => {
                 res.json(deleteRentDetail);
             });
