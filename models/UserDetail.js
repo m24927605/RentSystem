@@ -1,6 +1,5 @@
 'use strict'
-
-module.exports = function (sequelize, DataTypes) {
+module.exports=(sequelize, DataTypes)=>{
   const UserDetail = sequelize.define('UserDetail', {
     UserID: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, unique: true },
     RoomID: { type: DataTypes.INTEGER, allowNull: true, comment: '房號ID' },

@@ -1,6 +1,5 @@
 'use strict'
-
-module.exports = function (sequelize, DataTypes) {
+module.exports=(sequelize, DataTypes)=>{
   const PayFlow = sequelize.define('PayFlow', {
     ID: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, unique: true },
     UserID: { type: DataTypes.INTEGER, allowNull: true, comment: '租客ID' },

@@ -1,6 +1,5 @@
 'use strict'
-
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
     const RentDetail = sequelize.define('RentDetail', {
         RoomID: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, unique: true },
         RoomNo: { type: DataTypes.INTEGER, allowNull: true, comment: '房號' },

@@ -49,13 +49,13 @@ module.exports = (app, db) => {
 
         db.UserDetail
             .create(newUser)
-            .then(function (result) {
+            .then((result)=>{
                 console.log("db UserDetail create Successfully");
                 res.json(result);
             })
-            .catch(function (error) {
+            .catch((error)=>{
                 console.error("db UserDetail create error happened", error);
-            });
+            })
     });
 
     app.patch('/UserDetail/:id', (req, res) => {

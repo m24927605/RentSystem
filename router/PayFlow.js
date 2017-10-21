@@ -43,13 +43,13 @@ module.exports = (app, db) => {
         };
         db.PayFlow
             .create(payDetail)
-            .then(function (result) {
+            .then((result)=>{
                 console.log("db PayFlow create Successfully");
                 res.json(result);
             })
-            .catch(function (error) {
+            .catch((error)=>{
                 console.error("db PayFlow create error happened", error);
-            });
+            })
     });
 
     app.patch('/PayFlow/:id', (req, res) => {
