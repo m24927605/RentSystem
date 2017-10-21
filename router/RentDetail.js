@@ -17,17 +17,24 @@ module.exports = (app, db) => {
         })
             .then(rentDetail => {
                 res.json(rentDetail);
+            })
+            .catch((error)=>{
+                res.json({"error":error});
             });
     });
 
     app.get('/RentDetail/:id', (req, res) => {
         const id = req.params.id;
-        db.RentDetail.find({
+        db.RentDetail
+        .findOne({
             where: { RoomID: id }
         })
-            .then(rentDetail => {
-                res.json(rentDetail);
-            });
+        .then(rentDetail => {
+            res.json(rentDetail);
+        })
+        .catch((error)=>{
+            res.json({"error":err});
+        });
     });
 
     app.post('/RentDetail', (req, res) => {
@@ -56,13 +63,13 @@ module.exports = (app, db) => {
 
         db.RentDetail
             .create(newRent)
-            .then((result)=>{
+            .then((result) => {
                 console.log("db RentDetail create Successfully");
                 res.json(result);
             })
-            .catch((error)=>{
+            .catch((error) => {
                 console.error("db RentDetail create error happened", error);
-            })
+            });
     });
 
     app.patch('/RentDetail/:id', (req, res) => {
@@ -83,31 +90,43 @@ module.exports = (app, db) => {
             EnterDate: moment(`${EnterDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
             LeaveDate: moment(`${LeaveDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
             Status: req.body.Status,
-            CreateUser: req.body.CreateUser,
-            CreateDate: moment(`${CreateDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
             ModifyUser: req.body.ModifyUser,
             ModifyDate: moment(`${ModifyDate}`).format('YYYY-MM-DD HH:mm:ss.SSS')
         };
-        db.RentDetail.find({ where: { RoomID: id } })
-            .on('success', (updateRentDetail) => {
-                // Check if record exists in db
-                if (updateRentDetail) {
-                    updateRentDetail.updateAttributes(updateRent)
-                        .success(() => {
-
+        db.RentDetail.findOne({ where: { RoomID: id } })
+            .then((specificRentDetail) => {
+                if (specificRentDetail) {
+                    specificRentDetail.updateAttributes(updateRent)
+                        .then((result) => {
+                            console.log("update RentDetail Successfully");
+                            res.json(result);
+                        })
+                        .catch((error) => {
+                            console.error("db RentDetail update error happened", error);
                         })
                 }
+                else {
+                    console.log("findOne result: entDetail data not found");
+                    res.json({ "error": "rentDetail data not found" });
+                }
             })
+            .catch((error) => {
+                console.log("findOne error happended", error);
+                res.json({ "error": error });
+            });
     });
 
     app.delete('/RentDetail/:id', (req, res) => {
         const id = req.params.id;
         db.RentDetail
             .destroy({
-                where: { id: id }
+                where: { RoomID: id }
             })
-            .then(deleteRentDetail => {
-                res.json(deleteRentDetail);
+            .then(() => {
+                res.json({ "msg": "Delete data sucessfully" });
+            })
+            .catch((error) => {
+                res.json({ "error": error });
             });
     });
 };
