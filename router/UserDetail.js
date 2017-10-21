@@ -14,8 +14,8 @@ module.exports = (app, db) => {
             .then(userDetail => {
                 res.json(userDetail);
             })
-            .catch((error)=>{
-                res.json({"error":error});
+            .catch((error) => {
+                res.json({ "error": error });
             });
     });
 
@@ -28,8 +28,8 @@ module.exports = (app, db) => {
             .then(userDetail => {
                 res.json(userDetail);
             })
-            .catch((error)=>{
-                res.json({"error":error});
+            .catch((error) => {
+                res.json({ "error": error });
             });
     });
 
@@ -81,7 +81,8 @@ module.exports = (app, db) => {
             ModifyUser: req.body.ModifyUser,
             ModifyDate: moment(`${ModifyDate}`).format('YYYY-MM-DD HH:mm:ss.SSS')
         };
-        db.UserDetail.findOne({ where: { UserID: id } })
+        db.UserDetail
+            .findOne({ where: { UserID: id } })
             .then((specificUserDetail) => {
                 if (specificUserDetail) {
                     specificUserDetail.updateAttributes(updateUser)
@@ -111,9 +112,9 @@ module.exports = (app, db) => {
                 where: { UserID: id }
             })
             .then(() => {
-                res.json({"msg":"Delete data sucessfully"});
+                res.json({ "msg": "Delete data sucessfully" });
             })
-            .catch((error)=>{
+            .catch((error) => {
                 res.json({ "error": error });
             });
     });

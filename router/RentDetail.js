@@ -3,38 +3,39 @@
 module.exports = (app, db) => {
     const moment = require('moment');
     app.get('/RentDetail', (req, res) => {
-        db.RentDetail.findAll({
-            include: [
-                {
-                    model: db.UserDetail,
-                    include: [
-                        {
-                            model: db.PayFlow
-                        }
-                    ]
-                }
-            ]
-        })
+        db.RentDetail
+            .findAll({
+                include: [
+                    {
+                        model: db.UserDetail,
+                        include: [
+                            {
+                                model: db.PayFlow
+                            }
+                        ]
+                    }
+                ]
+            })
             .then(rentDetail => {
                 res.json(rentDetail);
             })
-            .catch((error)=>{
-                res.json({"error":error});
+            .catch((error) => {
+                res.json({ "error": error });
             });
     });
 
     app.get('/RentDetail/:id', (req, res) => {
         const id = req.params.id;
         db.RentDetail
-        .findOne({
-            where: { RoomID: id }
-        })
-        .then(rentDetail => {
-            res.json(rentDetail);
-        })
-        .catch((error)=>{
-            res.json({"error":err});
-        });
+            .findOne({
+                where: { RoomID: id }
+            })
+            .then(rentDetail => {
+                res.json(rentDetail);
+            })
+            .catch((error) => {
+                res.json({ "error": err });
+            });
     });
 
     app.post('/RentDetail', (req, res) => {
@@ -93,7 +94,8 @@ module.exports = (app, db) => {
             ModifyUser: req.body.ModifyUser,
             ModifyDate: moment(`${ModifyDate}`).format('YYYY-MM-DD HH:mm:ss.SSS')
         };
-        db.RentDetail.findOne({ where: { RoomID: id } })
+        db.RentDetail
+            .findOne({ where: { RoomID: id } })
             .then((specificRentDetail) => {
                 if (specificRentDetail) {
                     specificRentDetail.updateAttributes(updateRent)

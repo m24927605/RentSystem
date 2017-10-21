@@ -14,8 +14,8 @@ module.exports = (app, db) => {
             .then(payFlow => {
                 res.json(payFlow);
             })
-            .catch((error)=>{
-                res.json({"error":error});
+            .catch((error) => {
+                res.json({ "error": error });
             });
     });
 
@@ -28,8 +28,8 @@ module.exports = (app, db) => {
             .then(payFlow => {
                 res.json(payFlow);
             })
-            .catch((error)=>{
-                res.json({"error":error});
+            .catch((error) => {
+                res.json({ "error": error });
             })
     });
 
@@ -49,11 +49,11 @@ module.exports = (app, db) => {
         };
         db.PayFlow
             .create(payDetail)
-            .then((result)=>{
+            .then((result) => {
                 console.log("db PayFlow create Successfully");
                 res.json(result);
             })
-            .catch((error)=>{
+            .catch((error) => {
                 console.error("db PayFlow create error happened", error);
             });
     });
@@ -70,27 +70,28 @@ module.exports = (app, db) => {
             ModifyUser: req.body.ModifyUser,
             ModifyDate: moment(`${ModifyDate}`).format('YYYY-MM-DD HH:mm:ss.SSS')
         };
-        db.PayFlow.findOne({ where: { ID: id } })
-        .then((specificPayFlow) => {
-            if (specificPayFlow) {
-                specificPayFlow.updateAttributes(updatePay)
-                    .then((result) => {
-                        console.log("update PayFlow Successfully");
-                        res.json(result);
-                    })
-                    .catch((error) => {
-                        console.error("db PayFlow update error happened", error);
-                    })
-            }
-            else {
-                console.log("findOne result: payFlow data not found");
-                res.json({ "error": "payFlow data not found" });
-            }
-        })
-        .catch((error) => {
-            console.log("findOne error happended", error);
-            res.json({ "error": error });
-        });
+        db.PayFlow
+            .findOne({ where: { ID: id } })
+            .then((specificPayFlow) => {
+                if (specificPayFlow) {
+                    specificPayFlow.updateAttributes(updatePay)
+                        .then((result) => {
+                            console.log("update PayFlow Successfully");
+                            res.json(result);
+                        })
+                        .catch((error) => {
+                            console.error("db PayFlow update error happened", error);
+                        })
+                }
+                else {
+                    console.log("findOne result: payFlow data not found");
+                    res.json({ "error": "payFlow data not found" });
+                }
+            })
+            .catch((error) => {
+                console.log("findOne error happended", error);
+                res.json({ "error": error });
+            });
     });
 
     app.delete('/PayFlow/:id', (req, res) => {
@@ -100,9 +101,9 @@ module.exports = (app, db) => {
                 where: { ID: id }
             })
             .then(() => {
-                res.json({"msg":"Delete data sucessfully"});
+                res.json({ "msg": "Delete data sucessfully" });
             })
-            .catch((error)=>{
+            .catch((error) => {
                 res.json({ "error": error });
             });
     });
