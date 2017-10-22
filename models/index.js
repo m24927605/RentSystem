@@ -35,6 +35,8 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 //Relations
+db.FAQ.belongsTo(db.RentDetail,{foreignKey: 'RoomID'});
+db.RentDetail.hasMany(db.FAQ,{foreignKey: 'RoomID'});
 db.RentDetail.belongsTo(db.UserDetail, { foreignKey: 'RoomID' });
 db.UserDetail.hasMany(db.RentDetail, { foreignKey: 'RoomID' });
 db.PayFlow.belongsTo(db.UserDetail, { foreignKey: 'UserID' });
