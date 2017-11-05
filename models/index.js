@@ -22,7 +22,6 @@ fs
   .forEach(file => {
     const model = sequelize['import'](path.join(__dirname, file));
     db[model.name] = model;
-    console.log("model",model);
   });
 
 Object.keys(db).forEach(modelName => {
@@ -35,8 +34,6 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 //Relations
-db.FAQ.belongsTo(db.RentDetail,{foreignKey: 'RoomID'});
-db.RentDetail.hasMany(db.FAQ,{foreignKey: 'RoomID'});
 db.RentDetail.belongsTo(db.UserDetail, { foreignKey: 'RoomID' });
 db.UserDetail.hasMany(db.RentDetail, { foreignKey: 'RoomID' });
 db.PayFlow.belongsTo(db.UserDetail, { foreignKey: 'UserID' });

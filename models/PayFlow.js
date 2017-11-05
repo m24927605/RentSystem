@@ -5,7 +5,7 @@ module.exports=(sequelize, DataTypes)=>{
     UserID: { type: DataTypes.INTEGER, allowNull: true, comment: '租客ID' },
     PowerQty: { type: DataTypes.FLOAT, allowNull: true, comment: '使用度數' },
     Payment: { type: DataTypes.DECIMAL(18, 0), allowNull: true, comment: '總費用' },
-    PeriodOfPayment: { type: DataTypes.STRING(255), allowNull: true, comment: '支付期別' },
+    TimeOfPayment: { type: DataTypes.STRING(255), allowNull: true, comment: '支付期別' },
     CreateUser: { type: DataTypes.STRING(255), allowNull: true, comment: '資料創始者' },
     CreateDate: { type: DataTypes.STRING(255), allowNull: true, comment: '資料創始日期' },
     ModifyUser: { type: DataTypes.STRING(255), allowNull: true, comment: '資料調整者' },

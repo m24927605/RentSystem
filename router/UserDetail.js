@@ -32,26 +32,38 @@ module.exports = (app, db) => {
                 res.json({ "error": error });
             });
     });
-
+    /**
+     * @description 測試資料
+     * @example {
+        "RoomID": "1",
+        "UserName": "TEST",
+        "Birth": "1992-04-26",
+        "IDCardNo": "L124799531",
+        "Phone": "0910723969",
+        "ContacterPhone": "5566",
+        "Career": "IT",
+        "Address": "新北市忠和區景新街389號",
+        "Email": "m24927605@gmail.com",
+        "LineID": "dali17dali17"
+    }
+     */
     app.post('/UserDetail', (req, res) => {
         const Birth = req.body.Birth;
-        const CreateDate = new Date().toLocaleString();
-        const ModifyDate = new Date().toLocaleString();
         const newUser = {
             RoomID: req.body.RoomID,
             UserName: req.body.UserName,
             Birth: moment(Birth).format('YYYY-MM-DD'),
             IDCardNo: req.body.IDCardNo,
             Phone: req.body.Phone,
-            ContacterPhone:req.body.ContacterPhone,
+            ContacterPhone: req.body.ContacterPhone,
             Career: req.body.Career,
             Address: req.body.Address,
             Email: req.body.Email,
             LineID: req.body.LineID,
             CreateUser: req.body.CreateUser,
-            CreateDate: moment(`${CreateDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
-            ModifyUser: req.body.ModifyUser,
-            ModifyDate: moment(`${ModifyDate}`).format('YYYY-MM-DD HH:mm:ss.SSS')
+            CreateDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+            ModifyUser: "",
+            ModifyDate: ""
         };
 
         db.UserDetail
@@ -65,24 +77,39 @@ module.exports = (app, db) => {
             });
     });
 
+    /**
+     * @example{
+        "RoomID": "1",
+        "UserName": "Ted",
+        "Birth": "1992-04-26",
+        "IDCardNo": "L124799531",
+        "Phone": "0910723969",
+        "ContacterPhone": "123456",
+        "Career": "IT",
+        "Address": "新北市忠和區景新街389號",
+        "Email": "m24927605@gmail.com",
+        "LineID": "dali17dali17",
+        "ModifyUser": "System"
+    }
+     */
     app.patch('/UserDetail/:id', (req, res) => {
         const id = req.params.id;
         const Birth = req.body.Birth;
-        const ModifyDate = new Date().toLocaleString();
         const updateUser = {
             RoomID: req.body.RoomID,
             UserName: req.body.UserName,
             Birth: moment(Birth).format('YYYY-MM-DD'),
             IDCardNo: req.body.IDCardNo,
             Phone: req.body.Phone,
-            ContacterPhone:req.body.ContacterPhone,
+            ContacterPhone: req.body.ContacterPhone,
             Career: req.body.Career,
             Address: req.body.Address,
             Email: req.body.Email,
             LineID: req.body.LineID,
             ModifyUser: req.body.ModifyUser,
-            ModifyDate: moment(`${ModifyDate}`).format('YYYY-MM-DD HH:mm:ss.SSS')
+            ModifyDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS')
         };
+
         db.UserDetail
             .findOne({ where: { UserID: id } })
             .then((specificUserDetail) => {

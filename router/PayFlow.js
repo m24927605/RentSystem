@@ -32,20 +32,25 @@ module.exports = (app, db) => {
                 res.json({ "error": error });
             })
     });
-
+    /**
+     * @description 測試資料
+     * @example {
+                "UserID": 4,
+                "PowerQty": 400,
+                "Payment": 10000,
+                "CreateUser": "System"
+    }
+     */
     app.post('/PayFlow', (req, res) => {
-        const periodOfPayment = req.body.PeriodOfPayment;
-        const CreateDate = new Date().toLocaleString();
-        const ModifyDate = new Date().toLocaleString();
         const payDetail = {
             UserID: req.body.UserID,
             PowerQty: parseFloat(req.body.PowerQty),
             Payment: parseFloat(req.body.Payment),
-            PeriodOfPayment: moment(periodOfPayment).format('YYYY-MM-DD'),
+            TimeOfPayment: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
             CreateUser: req.body.CreateUser,
-            CreateDate: moment(`${CreateDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
-            ModifyUser: req.body.ModifyUser,
-            ModifyDate: moment(`${ModifyDate}`).format('YYYY-MM-DD HH:mm:ss.SSS')
+            CreateDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+            ModifyUser: "",
+            ModifyDate: ""
         };
         db.PayFlow
             .create(payDetail)
@@ -57,18 +62,25 @@ module.exports = (app, db) => {
                 console.error("db PayFlow create error happened", error);
             });
     });
-
+    /**
+     * @description 測試資料
+     * @example {
+                "UserID": 4,
+                "PowerQty": 200,
+                "Payment": 8000,
+                "CreateUser": "System",
+                "ModifyUser": "System"
+    }
+     */
     app.patch('/PayFlow/:id', (req, res) => {
         const id = req.params.id;
-        const periodOfPayment = req.body.PeriodOfPayment;
-        const ModifyDate = new Date().toLocaleString();
         const updatePay = {
             UserID: req.body.UserID,
             PowerQty: parseFloat(req.body.PowerQty),
             Payment: parseFloat(req.body.Payment),
-            PeriodOfPayment: moment(periodOfPayment).format('YYYY-MM-DD'),
+            TimeOfPayment: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
             ModifyUser: req.body.ModifyUser,
-            ModifyDate: moment(`${ModifyDate}`).format('YYYY-MM-DD HH:mm:ss.SSS')
+            ModifyDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS')
         };
         db.PayFlow
             .findOne({ where: { ID: id } })
