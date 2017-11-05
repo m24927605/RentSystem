@@ -7,6 +7,7 @@ module.exports=(sequelize, DataTypes)=>{
     Birth: { type: DataTypes.STRING(255), allowNull: true, comment: '出生日期' },
     IDCardNo: { type: DataTypes.CHAR(10), allowNull: true, comment: '身分證字號' },
     Phone: { type: DataTypes.STRING(255), allowNull: true, comment: '手機號碼' },
+    ContacterPhone:{type: DataTypes.STRING(255), allowNull: true, comment: '緊急聯絡人手機號碼'},
     Career: { type: DataTypes.STRING(255), allowNull: true, comment: '職業' },
     Address: { type: DataTypes.STRING(255), allowNull: true, comment: '住址' },
     Email: { type: DataTypes.STRING(255), allowNull: true, comment: '電子信箱' },
