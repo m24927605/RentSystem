@@ -1,0 +1,136 @@
+{
+    "paramValidate": {
+      "type": {
+        "errCode": 101,
+        "ITmessage": "參數型別錯誤",
+        "CSmessage": "請確認填寫的欄位數字或文字均正確",
+        "errorDetail": []
+      },
+      "required": {
+        "errCode": 102,
+        "ITmessage": "參數不存在",
+        "CSmessage": "請確認填寫所需要的欄位",
+        "errorDetail": []
+      },
+      "minLength": {
+        "errCode": 103,
+        "ITmessage": "參數長度錯誤",
+        "CSmessage": "請確認參數長度",
+        "errorDetail": []
+      },
+      "not": {
+        "errCode": 104,
+        "ITmessage": "參數不予許填入特定值",
+        "CSmessage": "請確認參數值",
+        "errorDetail": []
+      },
+      "email":  {
+        "errCode": 105,
+        "ITmessage": "Email格式不正確",
+        "CSmessage": "Email格式不正確，請重新填寫",
+        "errorDetail": []
+      }
+    },
+    "module": {
+      "sequelize": {
+        "errCode": 201,
+        "ITmessage": "Sequelize操作錯誤",
+        "CSmessage": "資料庫相關程式發生錯誤，請聯絡資訊人員",
+        "errorDetail": ""
+      },
+      "domain": {
+        "errCode": 202,
+        "ITmessage": "domain捕捉到try catch 的錯誤",
+        "CSmessage": "程式發生錯誤，請聯絡資訊人員",
+        "errorDetail": ""
+      },
+      "jsonwebtoken": {
+        "errCode": 203,
+        "ITmessage": "jsonwebtoken捕捉到try catch 的錯誤",
+        "CSmessage": "Token 驗證有誤，請聯絡資訊人員",
+        "errorDetail": ""
+      },
+      "pdfEncryption": {
+        "errCode": 106,
+        "ITmessage": "PDF Encryption Error",
+        "CSmessage": "PDF 產生失敗，請聯絡資訊人員",
+        "errorDetail": ""
+      },
+      "mailTemplate": {
+        "errCode": 206,
+        "ITmessage": "無法載入 Email 內文",
+        "CSmessage": "Email 內文讀取失敗，請聯絡資訊人員",
+        "errorDetail": ""
+      },
+      "mailSendFail": {
+        "errCode": 207,
+        "ITmessage": "Email 發送失敗",
+        "CSmessage": "Email 發送失敗，請聯絡資訊人員",
+        "errorDetail": ""
+      },
+      "ajv":{
+        "errCode": 208,
+        "ITmessage": "ajv捕捉到try catch 的錯誤",
+        "CSmessage": "參數檢查程式發生錯誤，請聯絡資訊人員",
+        "errorDetail": ""
+      }
+    },
+    "logic": {
+      "loginAccount": {
+        "errCode": 301,
+        "ITmessage": "login catch error",
+        "CSmessage": "帳號錯誤，請聯絡資訊人員",
+        "errorDetail": ""
+      },
+      "loginPwd": {
+        "errCode": 302,
+        "ITmessage": "login catch error",
+        "CSmessage": "密碼錯誤，請聯絡資訊人員",
+        "errorDetail": ""
+      },
+      "login": {
+        "errCode": 303,
+        "ITmessage": "login catch error",
+        "CSmessage": "登入程式錯誤，請聯絡資訊人員",
+        "errorDetail": ""
+      },
+      "decode": {
+        "errCode": 304,
+        "ITmessage": "decode 無資料",
+        "CSmessage": "Token 驗證結果有誤，請聯絡資訊人員",
+        "errorDetail": ""
+      },
+      "identityCode": {
+        "errCode": 205,
+        "ITmessage": "缺少身份證字號/護照號碼",
+        "CSmessage": "缺少身份證字號/護照號碼",
+        "errorDetail": ""
+      }
+    },
+    "router":{
+      "RentDetail":{
+        "errCode": 401,
+        "ITmessage": "RentDetail router try catch error",
+        "CSmessage": "Router發生錯誤，請聯絡資訊人員",
+        "errorDetail": ""
+      },
+      "UserDetail":{
+        "errCode": 402,
+        "ITmessage": "UserDetail router try catch error",
+        "CSmessage": "Router發生錯誤，請聯絡資訊人員",
+        "errorDetail": ""
+      },
+      "PayFlow":{
+        "errCode": 403,
+        "ITmessage": "PayFlow router try catch error",
+        "CSmessage": "Router發生錯誤，請聯絡資訊人員",
+        "errorDetail": ""
+      },
+      "Manager":{
+        "errCode": 404,
+        "ITmessage": "Manager router try catch error",
+        "CSmessage": "Router發生錯誤，請聯絡資訊人員",
+        "errorDetail": ""
+      }
+    }
+  }

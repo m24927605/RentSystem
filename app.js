@@ -7,7 +7,10 @@ const bodyParser = require('body-parser');
 const db = require('./models/index');
 const router = require('./router/index');
 const colors = require('colors');
+const cors=require('cors');
 const app = express();
+
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

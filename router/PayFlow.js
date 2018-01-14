@@ -28,7 +28,17 @@ module.exports = (app, db) => {
         const id = req.params.id;
         db.PayFlow
             .findOne({
-                where: { ID: id }
+                where: { ID: id },
+                include: [
+                    {
+                        model: db.UserDetail,
+                        include:[
+                            {
+                                model:db.RentDetail
+                            }
+                        ]
+                    }
+                ]
             })
             .then(payFlow => {
                 res.json(payFlow);

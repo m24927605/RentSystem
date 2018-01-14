@@ -23,7 +23,12 @@ module.exports = (app, db) => {
         const id = req.params.id;
         db.UserDetail
             .findOne({
-                where: { UserID: id }
+                where: { UserID: id },
+                include: [
+                    {
+                        model: db.RentDetail
+                    }
+                ]
             })
             .then(userDetail => {
                 res.json(userDetail);

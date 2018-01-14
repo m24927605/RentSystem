@@ -9,12 +9,14 @@
     "body-parser": "~1.18.2",
     "colors": "^1.1.2",
     "cookie-parser": "~1.4.3",
+    "cors": "^2.8.4",
     "debug": "^3.1.0",
     "ejs": "~2.5.7",
     "express": "^4.16.2",
     "moment": "^2.19.1",
     "morgan": "~1.9.0",
     "mssql": "^4.1.0",
+    "pretty-error": "^2.1.1",
     "sequelize": "^4.22.5",
     "serve-favicon": "~2.4.5"
   }
