@@ -3,12 +3,13 @@ module.exports=(sequelize, DataTypes)=>{
   const PayFlow = sequelize.define('PayFlow', {
     ID: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, unique: true },
     UserID: { type: DataTypes.INTEGER, allowNull: true, comment: '租客ID' },
+    RoomNo: { type: DataTypes.STRING(20), allowNull: true, comment: '房號' },
     PowerQty: { type: DataTypes.FLOAT, allowNull: true, comment: '使用度數' },
     Payment: { type: DataTypes.DECIMAL(18, 0), allowNull: true, comment: '總費用' },
     TimeOfPayment: { type: DataTypes.STRING(255), allowNull: true, comment: '支付期別' },
-    CreateUser: { type: DataTypes.STRING(255), allowNull: true, comment: '資料創始者' },
+    CreateUser: { type: DataTypes.STRING(20), allowNull: true, comment: '資料創始者' },
     CreateDate: { type: DataTypes.STRING(255), allowNull: true, comment: '資料創始日期' },
-    ModifyUser: { type: DataTypes.STRING(255), allowNull: true, comment: '資料調整者' },
+    ModifyUser: { type: DataTypes.STRING(20), allowNull: true, comment: '資料調整者' },
     ModifyDate: { type: DataTypes.STRING(255), allowNull: true, comment: '資料調整日期' }
   },
     {

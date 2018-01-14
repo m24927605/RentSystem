@@ -58,6 +58,7 @@ module.exports = (app, db) => {
         const EnterDate = req.body.EnterDate;
         const LeaveDate = req.body.LeaveDate;
         const newRent = {
+            UserID:req.body.UserID,
             RoomNo: req.body.RoomNo,
             RentStartDate: moment(`${RentStartDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
             RentEndDate: moment(`${RentEndDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
@@ -104,6 +105,7 @@ module.exports = (app, db) => {
         const EnterDate = req.body.EnterDate;
         const LeaveDate = req.body.LeaveDate;
         const updateRent = {
+            UserID:req.body.UserID,
             RoomNo: req.body.RoomNo,
             RentStartDate: moment(`${RentStartDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
             RentEndDate: moment(`${RentEndDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),

@@ -7,7 +7,12 @@ module.exports = (app, db) => {
             .findAll({
                 include: [
                     {
-                        model: db.UserDetail
+                        model: db.UserDetail,
+                        include:[
+                            {
+                                model:db.RentDetail
+                            }
+                        ]
                     }
                 ]
             })
@@ -44,6 +49,7 @@ module.exports = (app, db) => {
     app.post('/PayFlow', (req, res) => {
         const payDetail = {
             UserID: req.body.UserID,
+            RoomNo:req.body.RoomNo,
             PowerQty: parseFloat(req.body.PowerQty),
             Payment: parseFloat(req.body.Payment),
             TimeOfPayment: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
@@ -76,6 +82,7 @@ module.exports = (app, db) => {
         const id = req.params.id;
         const updatePay = {
             UserID: req.body.UserID,
+            RoomNo:req.body.RoomNo,
             PowerQty: parseFloat(req.body.PowerQty),
             Payment: parseFloat(req.body.Payment),
             TimeOfPayment: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),

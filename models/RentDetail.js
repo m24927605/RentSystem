@@ -2,7 +2,8 @@
 module.exports = (sequelize, DataTypes) => {
     const RentDetail = sequelize.define('RentDetail', {
         RoomID: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, unique: true },
-        RoomNo: { type: DataTypes.INTEGER, allowNull: true, comment: '房號' },
+        UserID: { type: DataTypes.INTEGER, allowNull: true, comment: '房客編號' },
+        RoomNo: { type: DataTypes.STRING(20), allowNull: true, comment: '房號' },
         RentStartDate: { type: DataTypes.STRING(255), allowNull: true, comment: '租屋起始日期' },
         RentEndDate: { type: DataTypes.STRING(255), allowNull: true, comment: '租屋結束日期' },
         PowerUnitCost: { type: DataTypes.DECIMAL, allowNull: true, comment: '每度電單價' },
@@ -13,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         CreateUser: { type: DataTypes.STRING(255), allowNull: true, comment: '資料創始者' },
         CreateDate: { type: DataTypes.STRING(255), allowNull: true, comment: '資料創始日期' },
         ModifyUser: { type: DataTypes.STRING(255), allowNull: true, comment: '資料調整者' },
-        ModifyDate: { type: DataTypes.STRING(255), allowNull: true, comment: '資料調整日期' }
+        ModifyDate: { type: DataTypes.STRING(255), allowNull: true, comment: '資料調整日期' },
+        CalculateType:{type:DataTypes.INTEGER,allowNull: true, comment: '繳費種類' }
     },
         {
             timestamps: false,
