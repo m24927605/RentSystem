@@ -16,7 +16,7 @@ module.exports = (db) => {
                         resolve(userDetail);
                     })
                     .catch((error) => {
-                        reject(error);
+                        reject(new Error(error));
                     });
             })
         },
@@ -38,7 +38,6 @@ module.exports = (db) => {
                         resolve([userDetail.rows, userDetail.count]);
                     })
                     .catch((error) => {
-                        console.error(error);
                         reject(new Error(error));
                     });
             })
@@ -58,7 +57,7 @@ module.exports = (db) => {
                         resolve(userDetail);
                     })
                     .catch((error) => {
-                        reject({ "error": error });
+                        reject(new Error(error));
                     });
             })
         },
@@ -70,7 +69,7 @@ module.exports = (db) => {
                         resolve(result);
                     })
                     .catch((error) => {
-                        reject(error);
+                        reject(new Error(error));
                     });
             })
         },
@@ -93,7 +92,7 @@ module.exports = (db) => {
                         }
                     })
                     .catch((error) => {
-                        reject(error);
+                        reject(new Error(error));
                     });
             })
         },
@@ -107,7 +106,7 @@ module.exports = (db) => {
                         resolve(result);
                     })
                     .catch((error) => {
-                        reject(error);
+                        reject(new Error(error));
                     });
             })
         }

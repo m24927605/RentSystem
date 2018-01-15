@@ -2,50 +2,36 @@
 
 module.exports = (app, db) => {
     const moment = require('moment');
+    const SQLPayFlow = require('../repository/PayFlow')(db);
+    let errorMessage = require('../services/helpers/error')();
     app.get('/PayFlow', (req, res) => {
-        db.PayFlow
-            .findAll({
-                include: [
-                    {
-                        model: db.UserDetail,
-                        include:[
-                            {
-                                model:db.RentDetail
-                            }
-                        ]
-                    }
-                ]
-            })
-            .then(payFlow => {
-                res.json(payFlow);
-            })
-            .catch((error) => {
-                res.json({ "error": error });
-            });
+        try {
+            SQLPayFlow.findAll()
+                .then((payFlow) => {
+                    res.status(200).json(payFlow);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("PayFlow", err));
+        }
     });
 
     app.get('/PayFlow/:id', (req, res) => {
-        const id = req.params.id;
-        db.PayFlow
-            .findOne({
-                where: { ID: id },
-                include: [
-                    {
-                        model: db.UserDetail,
-                        include:[
-                            {
-                                model:db.RentDetail
-                            }
-                        ]
-                    }
-                ]
-            })
-            .then(payFlow => {
-                res.json(payFlow);
-            })
-            .catch((error) => {
-                res.json({ "error": error });
-            })
+        try {
+            const id = req.params.id;
+            let queryObj = { ID: id };
+            SQLPayFlow.findOne(queryObj)
+                .then((payFlow) => {
+                    res.status(200).json(payFlow);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("PayFlow", err));
+        }
     });
     /**
      * @description 測試資料
@@ -57,26 +43,28 @@ module.exports = (app, db) => {
     }
      */
     app.post('/PayFlow', (req, res) => {
-        const payDetail = {
-            UserID: req.body.UserID,
-            RoomNo:req.body.RoomNo,
-            PowerQty: parseFloat(req.body.PowerQty),
-            Payment: parseFloat(req.body.Payment),
-            TimeOfPayment: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
-            CreateUser: req.body.CreateUser,
-            CreateDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
-            ModifyUser: "",
-            ModifyDate: ""
-        };
-        db.PayFlow
-            .create(payDetail)
-            .then((result) => {
-                console.log("db PayFlow create Successfully");
-                res.json(result);
-            })
-            .catch((error) => {
-                console.error("db PayFlow create error happened", error);
-            });
+        try {
+            const newPayFlow = {
+                UserID: req.body.UserID,
+                RoomNo: req.body.RoomNo,
+                PowerQty: parseFloat(req.body.PowerQty),
+                Payment: parseFloat(req.body.Payment),
+                TimeOfPayment: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+                CreateUser: req.body.CreateUser,
+                CreateDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+                ModifyUser: "",
+                ModifyDate: ""
+            };
+            SQLPayFlow.createOne(newPayFlow)
+                .then((payFlow) => {
+                    res.status(200).json(payFlow);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("PayFlow", err));
+        }
     });
     /**
      * @description 測試資料
@@ -89,51 +77,44 @@ module.exports = (app, db) => {
     }
      */
     app.patch('/PayFlow/:id', (req, res) => {
-        const id = req.params.id;
-        const updatePay = {
-            UserID: req.body.UserID,
-            RoomNo:req.body.RoomNo,
-            PowerQty: parseFloat(req.body.PowerQty),
-            Payment: parseFloat(req.body.Payment),
-            TimeOfPayment: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
-            ModifyUser: req.body.ModifyUser,
-            ModifyDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS')
-        };
-        db.PayFlow
-            .findOne({ where: { ID: id } })
-            .then((specificPayFlow) => {
-                if (specificPayFlow) {
-                    specificPayFlow.updateAttributes(updatePay)
-                        .then((result) => {
-                            console.log("update PayFlow Successfully");
-                            res.json(result);
-                        })
-                        .catch((error) => {
-                            console.error("db PayFlow update error happened", error);
-                        })
-                }
-                else {
-                    console.log("findOne result: payFlow data not found");
-                    res.json({ "error": "payFlow data not found" });
-                }
-            })
-            .catch((error) => {
-                console.log("findOne error happended", error);
-                res.json({ "error": error });
-            });
+        try {
+            const id = req.params.id;
+            const updatePayFlow = {
+                UserID: req.body.UserID,
+                RoomNo: req.body.RoomNo,
+                PowerQty: parseFloat(req.body.PowerQty),
+                Payment: parseFloat(req.body.Payment),
+                TimeOfPayment: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+                ModifyUser: req.body.ModifyUser,
+                ModifyDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS')
+            };
+            let queryObj = { ID: id };
+            SQLPayFlow.updateOne(queryObj, updatePayFlow)
+                .then((payFlow) => {
+                    res.status(200).json(payFlow);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("PayFlow", err));
+        }
     });
 
     app.delete('/PayFlow/:id', (req, res) => {
-        const id = req.params.id;
-        db.PayFlow
-            .destroy({
-                where: { ID: id }
-            })
-            .then(() => {
-                res.json({ "msg": "Delete data sucessfully" });
-            })
-            .catch((error) => {
-                res.json({ "error": error });
-            });
+        try {
+            const id = req.params.id;
+            let queryObj = { ID: id };
+
+            SQLPayFlow.deleteOne(queryObj)
+                .then((result) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("PayFlow", err));
+        }
     });
 };

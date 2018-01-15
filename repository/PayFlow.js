@@ -4,31 +4,30 @@ module.exports = (db) => {
     return {
         findAll: () => {
             return new Promise((resolve, reject) => {
-                db.RentDetail
+                db.PayFlow
                     .findAll({
                         include: [
                             {
                                 model: db.UserDetail,
                                 include: [
                                     {
-                                        model: db.PayFlow
+                                        model: db.RentDetail
                                     }
                                 ]
                             }
                         ]
                     })
-                    .then(rentDetail => {
-                        resolve(rentDetail);
+                    .then(payFlow => {
+                        resolve(payFlow);
                     })
                     .catch((error) => {
-                        console.error(error);
                         reject(new Error(error));
                     });
             })
         },
         findAndCountAll: (model, query, size, current) => {
             return new Promise((resolve, reject) => {
-                db.RentDetail
+                db.PayFlow
                     .findAndCountAll({
                         attributes: model,
                         where: query,
@@ -36,27 +35,21 @@ module.exports = (db) => {
                         limit: size,
                         include: [
                             {
-                                model: db.UserDetail,
-                                include: [
-                                    {
-                                        model: db.PayFlow
-                                    }
-                                ]
+                                model: db.RentDetail
                             }
                         ]
                     })
-                    .then(rentDetail => {
-                        resolve([rentDetail.rows, rentDetail.count]);
+                    .then(payFlow => {
+                        resolve([payFlow.rows, payFlow.count]);
                     })
                     .catch((error) => {
-                        console.error(error);
                         reject(new Error(error));
                     });
             })
         },
         findOne: (queryObj) => {
             return new Promise((resolve, reject) => {
-                db.RentDetail
+                db.PayFlow
                     .findOne({
                         where: queryObj,
                         include: [
@@ -64,24 +57,24 @@ module.exports = (db) => {
                                 model: db.UserDetail,
                                 include: [
                                     {
-                                        model: db.PayFlow
+                                        model: db.RentDetail
                                     }
                                 ]
                             }
                         ]
                     })
-                    .then(rentDetail => {
-                        resolve(rentDetail);
+                    .then(payFlow => {
+                        resolve(payFlow);
                     })
                     .catch((error) => {
                         reject(new Error(error));
-                    });
+                    })
             })
         },
-        createOne: (newRent) => {
+        createOne: (newPayFlow) => {
             return new Promise((resolve, reject) => {
-                db.RentDetail
-                    .create(newRent)
+                db.PayFlow
+                    .create(newPayFlow)
                     .then((result) => {
                         resolve(result);
                     })
@@ -92,11 +85,11 @@ module.exports = (db) => {
         },
         updateOne: (queryObj, updateObj) => {
             return new Promise((resolve, reject) => {
-                db.RentDetail
+                db.PayFlow
                     .findOne({ where: queryObj })
-                    .then((specificRentDetail) => {
-                        if (specificRentDetail) {
-                            specificRentDetail.updateAttributes(updateObj)
+                    .then((specificPayFlow) => {
+                        if (specificPayFlow) {
+                            specificPayFlow.updateAttributes(updateObj)
                                 .then((result) => {
                                     resolve(result);
                                 })
@@ -115,7 +108,7 @@ module.exports = (db) => {
         },
         deleteOne: (queryObj) => {
             return new Promise((resolve, reject) => {
-                db.RentDetail
+                db.PayFlow
                     .destroy({
                         where: queryObj
                     })
