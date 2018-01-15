@@ -32,7 +32,17 @@ module.exports = (db) => {
                     .findAndCountAll({
                         where: queryObj,
                         offset: size * (current - 1),
-                        limit: size
+                        limit: size,
+                        include: [
+                            {
+                                model: db.UserDetail,
+                                include: [
+                                    {
+                                        model: db.PayFlow
+                                    }
+                                ]
+                            }
+                        ]
                     })
                     .then(rentDetail => {
                         resolve([rentDetail.rows, rentDetail.count]);

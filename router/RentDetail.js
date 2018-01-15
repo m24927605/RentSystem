@@ -20,12 +20,22 @@ module.exports = (app, db) => {
 
     app.get('/RentDetail/:sizePage/:currentPage', (req, res) => {
         try {
-            let queryObj = {};
+            let RoomNo = req.query.RoomNo;
+            let queryObj ={};
+            if(RoomNo){
+                queryObj = { RoomNo: RoomNo };
+            }           
             let sizePage = +req.params['sizePage'];
-            let currnetPage = +req.params['currentPage'];
-            SQLRentDetail.findAndCountAll(queryObj, sizePage, currnetPage)
-                .then((rentDetail) => {
-                    res.status(200).json(rentDetail);
+            let currentPage = +req.params['currentPage'];
+            SQLRentDetail.findAndCountAll(queryObj, sizePage, currentPage)
+                .then(([rentDetail, total]) => {
+                    let resObj = {
+                        size: sizePage,
+                        current: currentPage,
+                        total: total,
+                        data: rentDetail
+                    }
+                    res.status(200).json(resObj);
                 })
                 .catch((error) => {
                     res.status(500).json(errorMessage.moduleSend("sequelize", error));
