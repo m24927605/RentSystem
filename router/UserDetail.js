@@ -2,40 +2,36 @@
 
 module.exports = (app, db) => {
     const moment = require('moment');
+    const SQLUserDetail = require('../repository/UserDetail')(db);
+    let errorMessage = require('../services/helpers/error')();
     app.get('/UserDetail', (req, res) => {
-        db.UserDetail
-            .findAll({
-                include: [
-                    {
-                        model: db.RentDetail
-                    }
-                ]
-            })
-            .then(userDetail => {
-                res.json(userDetail);
-            })
-            .catch((error) => {
-                res.json({ "error": error });
-            });
+        try {
+            SQLUserDetail.findAll()
+                .then((userDetail) => {
+                    res.status(200).json(userDetail);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("UserDetail", err));
+        }
     });
 
     app.get('/UserDetail/:id', (req, res) => {
-        const id = req.params.id;
-        db.UserDetail
-            .findOne({
-                where: { UserID: id },
-                include: [
-                    {
-                        model: db.RentDetail
-                    }
-                ]
-            })
-            .then(userDetail => {
-                res.json(userDetail);
-            })
-            .catch((error) => {
-                res.json({ "error": error });
-            });
+        try {
+            const id = req.params.id;
+            let queryObj = { UserID: id };
+            SQLUserDetail.findOne(queryObj)
+                .then((userDetail) => {
+                    res.status(200).json(userDetail);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("UserDetail", err));
+        }
     });
     /**
      * @description 測試資料
@@ -53,33 +49,35 @@ module.exports = (app, db) => {
     }
      */
     app.post('/UserDetail', (req, res) => {
-        const Birth = req.body.Birth;
-        const newUser = {
-            RoomID: req.body.RoomID,
-            UserName: req.body.UserName,
-            Birth: moment(Birth).format('YYYY-MM-DD'),
-            IDCardNo: req.body.IDCardNo,
-            Phone: req.body.Phone,
-            ContacterPhone: req.body.ContacterPhone,
-            Career: req.body.Career,
-            Address: req.body.Address,
-            Email: req.body.Email,
-            LineID: req.body.LineID,
-            CreateUser: req.body.CreateUser,
-            CreateDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
-            ModifyUser: "",
-            ModifyDate: ""
-        };
+        try {
+            const Birth = req.body.Birth;
+            const newUser = {
+                RoomID: req.body.RoomID,
+                UserName: req.body.UserName,
+                Birth: moment(Birth).format('YYYY-MM-DD'),
+                IDCardNo: req.body.IDCardNo,
+                Phone: req.body.Phone,
+                ContacterPhone: req.body.ContacterPhone,
+                Career: req.body.Career,
+                Address: req.body.Address,
+                Email: req.body.Email,
+                LineID: req.body.LineID,
+                CreateUser: req.body.CreateUser,
+                CreateDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+                ModifyUser: "",
+                ModifyDate: ""
+            };
 
-        db.UserDetail
-            .create(newUser)
-            .then((result) => {
-                console.log("db UserDetail create Successfully");
-                res.json(result);
-            })
-            .catch((error) => {
-                console.error("db UserDetail create error happened", error);
-            });
+            SQLUserDetail.createOne(newUser)
+                .then((userDetail) => {
+                    res.status(200).json(userDetail);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("UserDetail", err));
+        }
     });
 
     /**
@@ -98,58 +96,48 @@ module.exports = (app, db) => {
     }
      */
     app.patch('/UserDetail/:id', (req, res) => {
-        const id = req.params.id;
-        const Birth = req.body.Birth;
-        const updateUser = {
-            RoomID: req.body.RoomID,
-            UserName: req.body.UserName,
-            Birth: moment(Birth).format('YYYY-MM-DD'),
-            IDCardNo: req.body.IDCardNo,
-            Phone: req.body.Phone,
-            ContacterPhone: req.body.ContacterPhone,
-            Career: req.body.Career,
-            Address: req.body.Address,
-            Email: req.body.Email,
-            LineID: req.body.LineID,
-            ModifyUser: req.body.ModifyUser,
-            ModifyDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS')
-        };
-
-        db.UserDetail
-            .findOne({ where: { UserID: id } })
-            .then((specificUserDetail) => {
-                if (specificUserDetail) {
-                    specificUserDetail.updateAttributes(updateUser)
-                        .then((result) => {
-                            console.log("update UserDetail Successfully");
-                            res.json(result);
-                        })
-                        .catch((error) => {
-                            console.error("db UserDetail update error happened", error);
-                        })
-                }
-                else {
-                    console.log("findOne result: userDetail data not found");
-                    res.json({ "error": "userDetail data not found" });
-                }
-            })
-            .catch((error) => {
-                console.log("findOne error happended", error);
-                res.json({ "error": error });
-            });
+        try {
+            const id = req.params.id;
+            const Birth = req.body.Birth;
+            const updateUser = {
+                RoomID: req.body.RoomID,
+                UserName: req.body.UserName,
+                Birth: moment(Birth).format('YYYY-MM-DD'),
+                IDCardNo: req.body.IDCardNo,
+                Phone: req.body.Phone,
+                ContacterPhone: req.body.ContacterPhone,
+                Career: req.body.Career,
+                Address: req.body.Address,
+                Email: req.body.Email,
+                LineID: req.body.LineID,
+                ModifyUser: req.body.ModifyUser,
+                ModifyDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS')
+            };
+            let queryObj = { UserID: id };
+            SQLUserDetail.updateOne(queryObj, updateUser)
+                .then((userDetail) => {
+                    res.status(200).json(userDetail);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("UserDetail", err));
+        }
     });
 
     app.delete('/UserDetail/:id', (req, res) => {
-        const id = req.params.id;
-        db.UserDetail
-            .destroy({
-                where: { UserID: id }
-            })
-            .then(() => {
-                res.json({ "msg": "Delete data sucessfully" });
-            })
-            .catch((error) => {
-                res.json({ "error": error });
-            });
+        try {
+            let queryObj = { UserID: id };
+            SQLUserDetail.deleteOne(queryObj)
+                .then((result) => {
+                    res.status(200).json(result);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("UserDetail", err));
+        }
     });
 };

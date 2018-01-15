@@ -4,31 +4,25 @@ module.exports = (db) => {
     return {
         findAll: () => {
             return new Promise((resolve, reject) => {
-                db.RentDetail
+                db.UserDetail
                     .findAll({
                         include: [
                             {
-                                model: db.UserDetail,
-                                include: [
-                                    {
-                                        model: db.PayFlow
-                                    }
-                                ]
+                                model: db.RentDetail
                             }
                         ]
                     })
-                    .then(rentDetail => {
-                        resolve(rentDetail);
+                    .then(userDetail => {
+                        resolve(userDetail);
                     })
                     .catch((error) => {
-                        console.error(error);
-                        reject(new Error(error));
+                        reject(error);
                     });
             })
         },
         findAndCountAll: (model, query, size, current) => {
             return new Promise((resolve, reject) => {
-                db.RentDetail
+                db.UserDetail
                     .findAndCountAll({
                         attributes: model,
                         where: query,
@@ -36,17 +30,12 @@ module.exports = (db) => {
                         limit: size,
                         include: [
                             {
-                                model: db.UserDetail,
-                                include: [
-                                    {
-                                        model: db.PayFlow
-                                    }
-                                ]
+                                model: db.RentDetail
                             }
                         ]
                     })
-                    .then(rentDetail => {
-                        resolve([rentDetail.rows, rentDetail.count]);
+                    .then(userDetail => {
+                        resolve([userDetail.rows, userDetail.count]);
                     })
                     .catch((error) => {
                         console.error(error);
@@ -56,32 +45,27 @@ module.exports = (db) => {
         },
         findOne: (queryObj) => {
             return new Promise((resolve, reject) => {
-                db.RentDetail
+                db.UserDetail
                     .findOne({
                         where: queryObj,
                         include: [
                             {
-                                model: db.UserDetail,
-                                include: [
-                                    {
-                                        model: db.PayFlow
-                                    }
-                                ]
+                                model: db.RentDetail
                             }
                         ]
                     })
-                    .then(rentDetail => {
-                        resolve(rentDetail);
+                    .then(userDetail => {
+                        resolve(userDetail);
                     })
                     .catch((error) => {
-                        reject(error);
+                        reject({ "error": error });
                     });
             })
         },
-        createOne: (newRent) => {
+        createOne: (newUser) => {
             return new Promise((resolve, reject) => {
-                db.RentDetail
-                    .create(newRent)
+                db.UserDetail
+                    .create(newUser)
                     .then((result) => {
                         resolve(result);
                     })
@@ -90,13 +74,13 @@ module.exports = (db) => {
                     });
             })
         },
-        updateOne: (queryObj, updateObj) => {
+        updateOne:(queryObj, updateObj)=>{
             return new Promise((resolve, reject) => {
-                db.RentDetail
+                db.UserDetail
                     .findOne({ where: queryObj })
-                    .then((specificRentDetail) => {
-                        if (specificRentDetail) {
-                            specificRentDetail.updateAttributes(updateObj)
+                    .then((specificUserDetail) => {
+                        if (specificUserDetail) {
+                            specificUserDetail.updateAttributes(updateObj)
                                 .then((result) => {
                                     resolve(result);
                                 })
@@ -105,7 +89,7 @@ module.exports = (db) => {
                                 })
                         }
                         else {
-                            reject(new Error('specific RentDetail data not found'));
+                            reject(new Error('specific UserDetail data not found'));
                         }
                     })
                     .catch((error) => {
@@ -115,7 +99,7 @@ module.exports = (db) => {
         },
         deleteOne: (queryObj) => {
             return new Promise((resolve, reject) => {
-                db.RentDetail
+                db.UserDetail
                     .destroy({
                         where: queryObj
                     })
