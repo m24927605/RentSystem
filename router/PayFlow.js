@@ -18,6 +18,23 @@ module.exports = (app, db) => {
         }
     });
 
+    app.get('/PayFlow/:sizePage/:currentPage', (req, res) => {
+        try {
+            let queryObj = {};
+            let sizePage = +req.params['sizePage'];
+            let currnetPage = +req.params['currentPage'];
+            SQLPayFlow.findAndCountAll(queryObj, sizePage, currnetPage)
+                .then((payFlow) => {
+                    res.status(200).json(payFlow);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("PayFlow", err));
+        }
+    });
+
     app.get('/PayFlow/:id', (req, res) => {
         try {
             const id = req.params.id;

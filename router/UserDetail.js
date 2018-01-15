@@ -17,6 +17,22 @@ module.exports = (app, db) => {
             res.status(500).json(errorMessage.routerSend("UserDetail", err));
         }
     });
+    app.get('/UserDetail/:sizePage/:currentPage', (req, res) => {
+        try {
+            let queryObj = {};
+            let sizePage = +req.params['sizePage'];
+            let currnetPage = +req.params['currentPage'];
+            SQLUserDetail.findAndCountAll(queryObj, sizePage, currnetPage)
+                .then((userDetail) => {
+                    res.status(200).json(userDetail);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("UserDetail", err));
+        }
+    });
 
     app.get('/UserDetail/:id', (req, res) => {
         try {

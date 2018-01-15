@@ -18,6 +18,23 @@ module.exports = (app, db) => {
         }
     });
 
+    app.get('/Manager/:sizePage/:currentPage', (req, res) => {
+        try {
+            let queryObj = {};
+            let sizePage = +req.params['sizePage'];
+            let currnetPage = +req.params['currentPage'];
+            SQLManager.findAndCountAll(queryObj, sizePage, currnetPage)
+                .then((manager) => {
+                    res.status(200).json(manager);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("Manager", err));
+        }
+    });
+
     app.get('/Manager/:id', (req, res) => {
         try {
             const id = req.params.id;

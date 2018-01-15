@@ -20,12 +20,11 @@ module.exports = (db) => {
                     });
             })
         },
-        findAndCountAll: (model, query, size, current) => {
+        findAndCountAll: (queryObj, size, current) => {
             return new Promise((resolve, reject) => {
                 db.UserDetail
                     .findAndCountAll({
-                        attributes: model,
-                        where: query,
+                        where: queryObj,
                         offset: size * (current - 1),
                         limit: size,
                         include: [
