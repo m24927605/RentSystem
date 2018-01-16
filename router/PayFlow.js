@@ -67,12 +67,14 @@ module.exports = (app, db) => {
             let UserID = req.body.UserID;
             let RoomNo = req.body.RoomNo;
             let TimeOfPayment = req.body.TimeOfPayment;
+            let RentPeriod = req.body.RentPeriod;
             let newPayFlow = {
                 UserID: UserID,
                 RoomNo: RoomNo,
                 PowerQty: parseFloat(req.body.PowerQty),
                 Payment: parseFloat(req.body.Payment),
                 TimeOfPayment: moment(TimeOfPayment).toDate(),
+                RentPeriod: moment(RentPeriod).toDate(),
                 CreateUser: req.body.CreateUser,
                 CreateDate: moment().toDate(),
                 ModifyUser: "",
@@ -96,12 +98,14 @@ module.exports = (app, db) => {
             let UserID = req.body.UserID;
             let RoomNo = req.body.RoomNo;
             let TimeOfPayment = req.body.TimeOfPayment;
+            let RentPeriod = req.body.RentPeriod;
             let updatePayFlow = {
                 UserID: UserID,
                 RoomNo: RoomNo,
                 PowerQty: parseFloat(req.body.PowerQty),
                 Payment: parseFloat(req.body.Payment),
                 TimeOfPayment: moment(TimeOfPayment).toDate(),
+                RentPeriod: moment(RentPeriod).toDate(),
                 ModifyUser: req.body.ModifyUser,
                 ModifyDate: moment().toDate()
             };
