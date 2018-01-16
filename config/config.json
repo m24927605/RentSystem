@@ -4,20 +4,32 @@
     "password": "Aa123456",
     "database": "Rent",
     "host": "127.0.0.1",
-    "dialect": "mssql"
+    "dialect": "mssql",
+    "dialectOptions": {
+      "useUTC": false
+    },
+    "timezone": "+08:00"
   },
   "test": {
     "username": "sa",
     "password": "Aa123456",
     "database": "Rent",
     "host": "127.0.0.1",
-    "dialect": "mssql"
+    "dialect": "mssql",
+    "dialectOptions": {
+      "useUTC": false
+    },
+    "timezone": "+08:00"
   },
   "production": {
     "username": "sa",
     "password": "Aa123456",
     "database": "Rent",
     "host": "127.0.0.1",
-    "dialect": "mssql"
+    "dialect": "mssql",
+    "dialectOptions": {
+      "useUTC": false
+    },
+    "timezone": "+08:00"
   }
 }

@@ -66,9 +66,9 @@ module.exports = (app, db) => {
                 Account: req.body.Account,
                 Password: req.body.Password,
                 CreateUser: req.body.CreateUser,
-                CreateDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+                CreateDate: moment().toDate(),
                 ModifyUser: "",
-                ModifyDate: ""
+                ModifyDate: null
             };
             SQLManager.createOne(newManager)
                 .then((manager) => {
@@ -99,7 +99,7 @@ module.exports = (app, db) => {
                 Account: req.body.Account,
                 Password: req.body.Password,
                 ModifyUser: req.body.ModifyUser,
-                ModifyDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS')
+                ModifyDate: moment().toDate()
             };
             SQLManager.updateOne(queryObj, updateManager)
                 .then((manager) => {

@@ -3,7 +3,7 @@
 module.exports = (app, db) => {
     const moment = require('moment');
     const SQLPayFlow = require('../repository/PayFlow')(db);
-    let errorMessage = require('../services/helpers/error')();
+    const errorMessage = require('../services/helpers/error')();
     app.get('/PayFlow', (req, res) => {
         try {
             SQLPayFlow.findAll()
@@ -37,7 +37,7 @@ module.exports = (app, db) => {
 
     app.get('/PayFlow/:id', (req, res) => {
         try {
-            const id = req.params.id;
+            let id = req.params.id;
             let queryObj = { ID: id };
             SQLPayFlow.findOne(queryObj)
                 .then((payFlow) => {
@@ -61,16 +61,19 @@ module.exports = (app, db) => {
      */
     app.post('/PayFlow', (req, res) => {
         try {
-            const newPayFlow = {
-                UserID: req.body.UserID,
-                RoomNo: req.body.RoomNo,
+            let UserID = req.body.UserID;
+            let RoomNo = req.body.RoomNo;
+            let TimeOfPayment = req.body.TimeOfPayment;
+            let newPayFlow = {
+                UserID: UserID,
+                RoomNo: RoomNo,
                 PowerQty: parseFloat(req.body.PowerQty),
                 Payment: parseFloat(req.body.Payment),
-                TimeOfPayment: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+                TimeOfPayment: moment(TimeOfPayment).toDate(),
                 CreateUser: req.body.CreateUser,
-                CreateDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+                CreateDate: moment().toDate(),
                 ModifyUser: "",
-                ModifyDate: ""
+                ModifyDate: null
             };
             SQLPayFlow.createOne(newPayFlow)
                 .then((payFlow) => {
@@ -95,15 +98,18 @@ module.exports = (app, db) => {
      */
     app.patch('/PayFlow/:id', (req, res) => {
         try {
-            const id = req.params.id;
-            const updatePayFlow = {
-                UserID: req.body.UserID,
-                RoomNo: req.body.RoomNo,
+            let id = req.params.id;
+            let UserID = req.body.UserID;
+            let RoomNo = req.body.RoomNo;
+            let TimeOfPayment = req.body.TimeOfPayment;
+            let updatePayFlow = {
+                UserID: UserID,
+                RoomNo: RoomNo,
                 PowerQty: parseFloat(req.body.PowerQty),
                 Payment: parseFloat(req.body.Payment),
-                TimeOfPayment: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+                TimeOfPayment: moment(TimeOfPayment).toDate(),
                 ModifyUser: req.body.ModifyUser,
-                ModifyDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS')
+                ModifyDate: moment().toDate()
             };
             let queryObj = { ID: id };
             SQLPayFlow.updateOne(queryObj, updatePayFlow)
@@ -120,7 +126,7 @@ module.exports = (app, db) => {
 
     app.delete('/PayFlow/:id', (req, res) => {
         try {
-            const id = req.params.id;
+            let id = req.params.id;
             let queryObj = { ID: id };
 
             SQLPayFlow.deleteOne(queryObj)

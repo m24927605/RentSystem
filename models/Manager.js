@@ -6,9 +6,9 @@ module.exports=(sequelize, DataTypes)=>{
     Account: { type: DataTypes.STRING(100), allowNull: true, comment: '管理者帳號' },
     Password: { type: DataTypes.STRING(255), allowNull: true, comment: '管理者密碼' },
     CreateUser: { type: DataTypes.STRING(20), allowNull: true, comment: '資料創始者' },
-    CreateDate: { type: DataTypes.STRING(255), allowNull: true, comment: '資料創始日期' },
+    CreateDate: { type: DataTypes.DATE, allowNull: true, comment: '資料創始日期' },
     ModifyUser: { type: DataTypes.STRING(20), allowNull: true, comment: '資料調整者' },
-    ModifyDate: { type: DataTypes.STRING(255), allowNull: true, comment: '資料調整日期' }
+    ModifyDate: { type: DataTypes.DATE, allowNull: true, comment: '資料調整日期' }
   },
     {
       timestamps: false,

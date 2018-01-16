@@ -3,7 +3,7 @@
 module.exports = (app, db) => {
     const moment = require('moment');
     const SQLUserDetail = require('../repository/UserDetail')(db);
-    let errorMessage = require('../services/helpers/error')();
+    const errorMessage = require('../services/helpers/error')();
     app.get('/UserDetail', (req, res) => {
         try {
             SQLUserDetail.findAll()
@@ -36,7 +36,7 @@ module.exports = (app, db) => {
 
     app.get('/UserDetail/:id', (req, res) => {
         try {
-            const id = req.params.id;
+            let id = req.params.id;
             let queryObj = { UserID: id };
             SQLUserDetail.findOne(queryObj)
                 .then((userDetail) => {
@@ -66,11 +66,11 @@ module.exports = (app, db) => {
      */
     app.post('/UserDetail', (req, res) => {
         try {
-            const Birth = req.body.Birth;
-            const newUser = {
+            let Birth = req.body.Birth;
+            let newUser = {
                 RoomID: req.body.RoomID,
                 UserName: req.body.UserName,
-                Birth: moment(Birth).format('YYYY-MM-DD'),
+                Birth: moment(Birth).toDate(),
                 IDCardNo: req.body.IDCardNo,
                 Phone: req.body.Phone,
                 ContacterPhone: req.body.ContacterPhone,
@@ -79,9 +79,9 @@ module.exports = (app, db) => {
                 Email: req.body.Email,
                 LineID: req.body.LineID,
                 CreateUser: req.body.CreateUser,
-                CreateDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+                CreateDate: moment().toDate(),
                 ModifyUser: "",
-                ModifyDate: ""
+                ModifyDate: null
             };
 
             SQLUserDetail.createOne(newUser)
@@ -113,12 +113,12 @@ module.exports = (app, db) => {
      */
     app.patch('/UserDetail/:id', (req, res) => {
         try {
-            const id = req.params.id;
-            const Birth = req.body.Birth;
-            const updateUser = {
+            let id = req.params.id;
+            let Birth = req.body.Birth;
+            let updateUser = {
                 RoomID: req.body.RoomID,
                 UserName: req.body.UserName,
-                Birth: moment(Birth).format('YYYY-MM-DD'),
+                Birth: moment(Birth).toDate(),
                 IDCardNo: req.body.IDCardNo,
                 Phone: req.body.Phone,
                 ContacterPhone: req.body.ContacterPhone,
@@ -127,7 +127,7 @@ module.exports = (app, db) => {
                 Email: req.body.Email,
                 LineID: req.body.LineID,
                 ModifyUser: req.body.ModifyUser,
-                ModifyDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS')
+                ModifyDate: moment().toDate()
             };
             let queryObj = { UserID: id };
             SQLUserDetail.updateOne(queryObj, updateUser)

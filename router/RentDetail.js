@@ -3,7 +3,7 @@
 module.exports = (app, db) => {
     const moment = require('moment');
     const SQLRentDetail = require('../repository/RentDetail')(db);
-    let errorMessage = require('../services/helpers/error')();
+    const errorMessage = require('../services/helpers/error')();
     app.get('/RentDetail', (req, res) => {
         try {
             SQLRentDetail.findAll()
@@ -47,7 +47,7 @@ module.exports = (app, db) => {
 
     app.get('/RentDetail/:id', (req, res) => {
         try {
-            const id = req.params.id;
+            let id = req.params.id;
             let queryObj = { RoomID: id };
             SQLRentDetail.findOne(queryObj)
                 .then((rentDetail) => {
@@ -76,24 +76,24 @@ module.exports = (app, db) => {
      */
     app.post('/RentDetail', (req, res) => {
         try {
-            const RentStartDate = req.body.RentStartDate;
-            const RentEndDate = req.body.RentEndDate;
-            const EnterDate = req.body.EnterDate;
-            const LeaveDate = req.body.LeaveDate;
-            const newRent = {
+            let RentStartDate = req.body.RentStartDate;
+            let RentEndDate = req.body.RentEndDate;
+            let EnterDate = req.body.EnterDate;
+            let LeaveDate = req.body.LeaveDate;
+            let newRent = {
                 UserID: req.body.UserID,
                 RoomNo: req.body.RoomNo,
-                RentStartDate: moment(`${RentStartDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
-                RentEndDate: moment(`${RentEndDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
+                RentStartDate: moment(RentStartDate).toDate(),
+                RentEndDate: moment(RentEndDate).toDate(),
                 PowerUnitCost: req.body.PowerUnitCost,
                 RentMonthly: req.body.RentMonthly,
-                EnterDate: moment(`${EnterDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
-                LeaveDate: moment(`${LeaveDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
+                EnterDate: moment(EnterDate).toDate(),
+                LeaveDate: moment(LeaveDate).toDate(),
                 Status: req.body.Status,
                 CreateUser: req.body.CreateUser,
-                CreateDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS'),
+                CreateDate: moment().toDate(),
                 ModifyUser: "",
-                ModifyDate: ""
+                ModifyDate: null
             };
             SQLRentDetail.createOne(newRent)
                 .then((rentDetail) => {
@@ -123,23 +123,23 @@ module.exports = (app, db) => {
      */
     app.patch('/RentDetail/:id', (req, res) => {
         try {
-            const id = req.params.id;
-            const RentStartDate = req.body.RentStartDate;
-            const RentEndDate = req.body.RentEndDate;
-            const EnterDate = req.body.EnterDate;
-            const LeaveDate = req.body.LeaveDate;
-            const updateRent = {
+            let id = req.params.id;
+            let RentStartDate = req.body.RentStartDate;
+            let RentEndDate = req.body.RentEndDate;
+            let EnterDate = req.body.EnterDate;
+            let LeaveDate = req.body.LeaveDate;
+            let updateRent = {
                 UserID: req.body.UserID,
                 RoomNo: req.body.RoomNo,
-                RentStartDate: moment(`${RentStartDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
-                RentEndDate: moment(`${RentEndDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
+                RentStartDate: moment(RentStartDate).toDate(),
+                RentEndDate: moment(RentEndDate).toDate(),
                 PowerUnitCost: req.body.PowerUnitCost,
                 RentMonthly: req.body.RentMonthly,
-                EnterDate: moment(`${EnterDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
-                LeaveDate: moment(`${LeaveDate}`).format('YYYY-MM-DD HH:mm:ss.SSS'),
+                EnterDate: moment(EnterDate).toDate(),
+                LeaveDate: moment(LeaveDate).toDate(),
                 Status: req.body.Status,
                 ModifyUser: req.body.ModifyUser,
-                ModifyDate: moment().format('YYYY-MM-DD HH:mm:ss.SSS')
+                ModifyDate: moment().toDate()
             };
             let queryObj = { RoomID: id };
             SQLRentDetail.updateOne(queryObj, updateRent)
@@ -156,7 +156,7 @@ module.exports = (app, db) => {
 
     app.delete('/RentDetail/:id', (req, res) => {
         try {
-            const id = req.params.id;
+            let id = req.params.id;
             let queryObj = { RoomID: id };
             SQLRentDetail.deleteOne(queryObj)
                 .then((result) => {
