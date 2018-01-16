@@ -4,6 +4,7 @@ module.exports = (app, db) => {
     const moment = require('moment');
     const SQLPayFlow = require('../repository/PayFlow')(db);
     const errorMessage = require('../services/helpers/error')();
+
     app.get('/PayFlow', (req, res) => {
         try {
             SQLPayFlow.findAll()
@@ -20,12 +21,22 @@ module.exports = (app, db) => {
 
     app.get('/PayFlow/:sizePage/:currentPage', (req, res) => {
         try {
+            let RoomNo = req.query.RoomNo;
             let queryObj = {};
+            if (RoomNo) {
+                queryObj = { RoomNo: RoomNo };
+            }
             let sizePage = +req.params['sizePage'];
-            let currnetPage = +req.params['currentPage'];
-            SQLPayFlow.findAndCountAll(queryObj, sizePage, currnetPage)
-                .then((payFlow) => {
-                    res.status(200).json(payFlow);
+            let currentPage = +req.params['currentPage'];
+            SQLPayFlow.findAndCountAll(queryObj, sizePage, currentPage)
+                .then(([payFlow, total]) => {
+                    let resObj = {
+                        size: sizePage,
+                        current: currentPage,
+                        total: total,
+                        data: payFlow
+                    }
+                    res.status(200).json(resObj);
                 })
                 .catch((error) => {
                     res.status(500).json(errorMessage.moduleSend("sequelize", error));
@@ -50,15 +61,7 @@ module.exports = (app, db) => {
             res.status(500).json(errorMessage.routerSend("PayFlow", err));
         }
     });
-    /**
-     * @description 測試資料
-     * @example {
-                "UserID": 4,
-                "PowerQty": 400,
-                "Payment": 10000,
-                "CreateUser": "System"
-    }
-     */
+
     app.post('/PayFlow', (req, res) => {
         try {
             let UserID = req.body.UserID;
@@ -86,16 +89,7 @@ module.exports = (app, db) => {
             res.status(500).json(errorMessage.routerSend("PayFlow", err));
         }
     });
-    /**
-     * @description 測試資料
-     * @example {
-                "UserID": 4,
-                "PowerQty": 200,
-                "Payment": 8000,
-                "CreateUser": "System",
-                "ModifyUser": "System"
-    }
-     */
+
     app.patch('/PayFlow/:id', (req, res) => {
         try {
             let id = req.params.id;

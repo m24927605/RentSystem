@@ -4,6 +4,7 @@ module.exports=(sequelize, DataTypes)=>{
     UserID: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, unique: true },
     UserName: { type: DataTypes.STRING(20), allowNull: true, comment: '姓名' },
     Birth: { type: DataTypes.DATEONLY, allowNull: true, comment: '出生日期' },
+    Sex: { type: DataTypes.STRING(2), allowNull: true, comment: '性別' },
     IDCardNo: { type: DataTypes.STRING(20), allowNull: true, comment: '身分證字號' },
     Phone: { type: DataTypes.STRING(20), allowNull: true, comment: '手機號碼' },
     ContactUser:{type: DataTypes.STRING(20), allowNull: true, comment: '緊急聯絡人'},

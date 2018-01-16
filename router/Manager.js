@@ -4,6 +4,7 @@ module.exports = (app, db) => {
     const moment = require('moment');
     const SQLManager = require('../repository/Manager')(db);
     let errorMessage = require('../services/helpers/error')();
+
     app.get('/Manager', (req, res) => {
         try {
             SQLManager.findAll()
@@ -22,8 +23,8 @@ module.exports = (app, db) => {
         try {
             let queryObj = {};
             let sizePage = +req.params['sizePage'];
-            let currnetPage = +req.params['currentPage'];
-            SQLManager.findAndCountAll(queryObj, sizePage, currnetPage)
+            let currentPage = +req.params['currentPage'];
+            SQLManager.findAndCountAll(queryObj, sizePage, currentPage)
                 .then((manager) => {
                     res.status(200).json(manager);
                 })
@@ -50,15 +51,7 @@ module.exports = (app, db) => {
             res.status(500).json(errorMessage.routerSend("Manager", err));
         }
     });
-    /**
-     * @description 測試資料
-     * @example {
-                "Name": "Test",
-                "Account": "Test",
-                "Password": "test",
-                "CreateUser": "System"
-            }
-     */
+
     app.post('/Manager', (req, res) => {
         try {
             const newManager = {
@@ -81,15 +74,7 @@ module.exports = (app, db) => {
             res.status(500).json(errorMessage.routerSend("Manager", err));
         }
     });
-    /**
-     * @description 測試資料
-     * @example  {
-                "Name": "Test123",
-                "Account": "Test123",
-                "Password": "test123",
-                "ModifyUser": "System"
-            }
-     */
+
     app.patch('/Manager/:id', (req, res) => {
         try {
             const id = req.params.id;

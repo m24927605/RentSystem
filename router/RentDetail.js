@@ -4,6 +4,7 @@ module.exports = (app, db) => {
     const moment = require('moment');
     const SQLRentDetail = require('../repository/RentDetail')(db);
     const errorMessage = require('../services/helpers/error')();
+
     app.get('/RentDetail', (req, res) => {
         try {
             SQLRentDetail.findAll()
@@ -60,20 +61,7 @@ module.exports = (app, db) => {
             res.status(500).json(errorMessage.routerSend("RentDetail", err));
         }
     });
-    /**
-     * @description 測試資料
-     * @example {
-                "RoomNo": "9502",
-                "RentStartDate": "2017-12-01",
-                "RentEndDate": "2018-12-01",
-                "PowerUnitCost": 4,
-                "RentMonthly": 7800,
-                "EnterDate": "2017-12-02",
-                "LeaveDate": "2018-11-30",
-                "Status": "Y",
-                "CreateUser": "System"
-            }
-     */
+
     app.post('/RentDetail', (req, res) => {
         try {
             let RentStartDate = req.body.RentStartDate;
@@ -106,21 +94,7 @@ module.exports = (app, db) => {
             res.status(500).json(errorMessage.routerSend("RentDetail", err));
         }
     });
-    /**
-     * @description 測試資料
-     * @example {
-                "RoomNo": "9502",
-                "RentStartDate": "2017-12-01",
-                "RentEndDate": "2018-12-01",
-                "PowerUnitCost": 4,
-                "RentMonthly": 10000,
-                "EnterDate": "2017-12-02",
-                "LeaveDate": "2018-11-30",
-                "Status": "Y",
-                "CreateUser": "System",
-                "ModifyUser": "System"
-            }
-     */
+
     app.patch('/RentDetail/:id', (req, res) => {
         try {
             let id = req.params.id;

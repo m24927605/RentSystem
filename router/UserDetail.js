@@ -4,6 +4,7 @@ module.exports = (app, db) => {
     const moment = require('moment');
     const SQLUserDetail = require('../repository/UserDetail')(db);
     const errorMessage = require('../services/helpers/error')();
+
     app.get('/UserDetail', (req, res) => {
         try {
             SQLUserDetail.findAll()
@@ -17,14 +18,25 @@ module.exports = (app, db) => {
             res.status(500).json(errorMessage.routerSend("UserDetail", err));
         }
     });
+
     app.get('/UserDetail/:sizePage/:currentPage', (req, res) => {
         try {
+            let UserName = req.query.UserName;
             let queryObj = {};
+            if(UserName){
+                queryObj = { UserName: UserName };
+            }  
             let sizePage = +req.params['sizePage'];
-            let currnetPage = +req.params['currentPage'];
-            SQLUserDetail.findAndCountAll(queryObj, sizePage, currnetPage)
-                .then((userDetail) => {
-                    res.status(200).json(userDetail);
+            let currentPage = +req.params['currentPage'];
+            SQLUserDetail.findAndCountAll(queryObj, sizePage, currentPage)
+                .then(([userDetail,total]) => {
+                    let resObj = {
+                        size: sizePage,
+                        current: currentPage,
+                        total: total,
+                        data: userDetail
+                    }
+                    res.status(200).json(resObj);
                 })
                 .catch((error) => {
                     res.status(500).json(errorMessage.moduleSend("sequelize", error));
@@ -49,21 +61,7 @@ module.exports = (app, db) => {
             res.status(500).json(errorMessage.routerSend("UserDetail", err));
         }
     });
-    /**
-     * @description 測試資料
-     * @example {
-        "RoomID": "1",
-        "UserName": "TEST",
-        "Birth": "1992-04-26",
-        "IDCardNo": "L124799531",
-        "Phone": "0910723969",
-        "ContacterPhone": "5566",
-        "Career": "IT",
-        "Address": "新北市忠和區景新街389號",
-        "Email": "m24927605@gmail.com",
-        "LineID": "dali17dali17"
-    }
-     */
+
     app.post('/UserDetail', (req, res) => {
         try {
             let Birth = req.body.Birth;
@@ -71,6 +69,7 @@ module.exports = (app, db) => {
                 RoomID: req.body.RoomID,
                 UserName: req.body.UserName,
                 Birth: moment(Birth).toDate(),
+                Sex:req.body.Sex,
                 IDCardNo: req.body.IDCardNo,
                 Phone: req.body.Phone,
                 ContacterPhone: req.body.ContacterPhone,
@@ -96,21 +95,6 @@ module.exports = (app, db) => {
         }
     });
 
-    /**
-     * @example{
-        "RoomID": "1",
-        "UserName": "Ted",
-        "Birth": "1992-04-26",
-        "IDCardNo": "L124799531",
-        "Phone": "0910723969",
-        "ContacterPhone": "123456",
-        "Career": "IT",
-        "Address": "新北市忠和區景新街389號",
-        "Email": "m24927605@gmail.com",
-        "LineID": "dali17dali17",
-        "ModifyUser": "System"
-    }
-     */
     app.patch('/UserDetail/:id', (req, res) => {
         try {
             let id = req.params.id;
@@ -119,6 +103,7 @@ module.exports = (app, db) => {
                 RoomID: req.body.RoomID,
                 UserName: req.body.UserName,
                 Birth: moment(Birth).toDate(),
+                Sex:req.body.Sex,
                 IDCardNo: req.body.IDCardNo,
                 Phone: req.body.Phone,
                 ContacterPhone: req.body.ContacterPhone,
