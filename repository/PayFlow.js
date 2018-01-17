@@ -27,22 +27,28 @@ module.exports = (db) => {
         },
         findAndCountAll: (queryObj, size, current) => {
             return new Promise((resolve, reject) => {
+                let whereObj = { where: queryObj };
+                let obj = {
+                    offset: size * (current - 1),
+                    limit: size,
+                    include: [
+                        {
+                            model: db.UserDetail,
+                            include: [
+                                {
+                                    model: db.RentDetail
+                                }
+                            ]
+                        }
+                    ]
+                };
+                if (Object.values(queryObj)[0]) {
+                    //有where條件，將where條件合併加入
+                    Object.assign(obj, whereObj);
+                }
+                console.log('Object.values(queryObj)[0]', Object.values(queryObj)[0]);
                 db.PayFlow
-                    .findAndCountAll({
-                        where: queryObj,
-                        offset: size * (current - 1),
-                        limit: size,
-                        include: [
-                            {
-                                model: db.UserDetail,
-                                include: [
-                                    {
-                                        model: db.RentDetail
-                                    }
-                                ]
-                            }
-                        ]
-                    })
+                    .findAndCountAll(obj)
                     .then(payFlow => {
                         resolve([payFlow.rows, payFlow.count]);
                     })

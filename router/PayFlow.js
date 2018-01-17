@@ -22,9 +22,13 @@ module.exports = (app, db) => {
     app.get('/PayFlow/:sizePage/:currentPage', (req, res) => {
         try {
             let RoomNo = req.query.RoomNo;
+            let UserID = +req.query.UserID;
             let queryObj = {};
-            if (RoomNo) {
+            if (RoomNo !== 'undefined') {
                 queryObj = { RoomNo: RoomNo };
+            }
+            if (UserID) {
+                queryObj = { UserID: UserID };
             }
             let sizePage = +req.params['sizePage'];
             let currentPage = +req.params['currentPage'];
