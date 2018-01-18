@@ -29,13 +29,13 @@ app.use((req, res, next) => {
   next();
 });
 
-router(app, db);
-
 //drop and resync with { force: true }
 db.sequelize.sync().then(() => {
   const msg = `資料庫已連線並準備完畢`;
   console.log(colors.green('系統訊息: %s'), msg);
 });
+
+router(app, db);
 
 // catch 404 and forward to error handler
 app.use((req,res,next)=> {

@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = (db) => {
+    const S=require('sequelize');
     return {
         findAll: () => {
             return new Promise((resolve, reject) => {
@@ -31,6 +32,19 @@ module.exports = (db) => {
                 let obj = {
                     offset: size * (current - 1),
                     limit: size,
+                    attributes: [
+                        [S.col('UserDetail.UserName'),'UserName'],
+                        'ID',
+                        'PowerQty',
+                        'Payment',
+                        'TimeOfPayment',
+                        'CreateUser',
+                        'CreateDate',
+                        'ModifyUser',
+                        'ModifyDate',
+                        'RoomNo',
+                        'RentPeriod'
+                    ],
                     include: [
                         {
                             model: db.UserDetail,
@@ -46,7 +60,6 @@ module.exports = (db) => {
                     //有where條件，將where條件合併加入
                     Object.assign(obj, whereObj);
                 }
-                console.log('Object.values(queryObj)[0]', Object.values(queryObj)[0]);
                 db.PayFlow
                     .findAndCountAll(obj)
                     .then(payFlow => {
