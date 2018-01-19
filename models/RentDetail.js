@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
         CreateDate: { type: DataTypes.DATE, allowNull: true, comment: '資料創始日期' },
         ModifyUser: { type: DataTypes.STRING(255), allowNull: true, comment: '資料調整者' },
         ModifyDate: { type: DataTypes.DATE, allowNull: true, comment: '資料調整日期' },
-        CalculateType: { type: DataTypes.INTEGER, allowNull: true, comment: '繳費種類' }
     },
         {
             timestamps: false,

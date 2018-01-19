@@ -77,6 +77,8 @@ module.exports = (app, db) => {
                 Address: req.body.Address,
                 Email: req.body.Email,
                 LineID: req.body.LineID,
+                CalculateType:req.body.CalculateType,
+                TVCost:req.body.TVCost,
                 CreateUser: req.body.CreateUser,
                 CreateDate: moment().toDate(),
                 ModifyUser: "",
@@ -111,6 +113,8 @@ module.exports = (app, db) => {
                 Address: req.body.Address,
                 Email: req.body.Email,
                 LineID: req.body.LineID,
+                TVCost:req.body.TVCost,
+                CalculateType:req.body.CalculateType,
                 ModifyUser: req.body.ModifyUser,
                 ModifyDate: moment().toDate()
             };

@@ -13,6 +13,8 @@ module.exports=(sequelize, DataTypes)=>{
     Address: { type: DataTypes.STRING(100), allowNull: true, comment: '住址' },
     Email: { type: DataTypes.STRING(100), allowNull: true, comment: '電子信箱' },
     LineID: { type: DataTypes.STRING(50), allowNull: true, comment: 'LineID' },
+    CalculateType: { type: DataTypes.INTEGER, allowNull: true, comment: '繳費種類' },
+    TVCost: { type: DataTypes.INTEGER, allowNull: true, comment: '有線電視費用' },
     CreateUser: { type: DataTypes.STRING(20), allowNull: true, comment: '資料創始者' },
     CreateDate: { type: DataTypes.DATE, allowNull: true, comment: '資料創始日期' },
     ModifyUser: { type: DataTypes.STRING(20), allowNull: true, comment: '資料調整者' },

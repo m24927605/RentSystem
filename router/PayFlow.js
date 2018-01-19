@@ -3,7 +3,10 @@
 module.exports = (app, db) => {
     const moment = require('moment');
     const SQLPayFlow = require('../repository/PayFlow')(db);
+    const SQLRentDetail = require('../repository/RentDetail')(db);
+    const SQLUserDetail = require('../repository/UserDetail')(db);
     const errorMessage = require('../services/helpers/error')();
+    const payService = require('../services/pay')();
 
     app.get('/PayFlow', (req, res) => {
         try {
@@ -66,18 +69,25 @@ module.exports = (app, db) => {
         }
     });
 
-    app.post('/PayFlow', (req, res) => {
+    app.post('/PayFlow', async (req, res) => {
         try {
             let UserID = req.body.UserID;
             let RoomNo = req.body.RoomNo;
             let TimeOfPayment = req.body.TimeOfPayment;
             let RentPeriod = req.body.RentPeriod;
+            let CalculateType = req.body.CalculateType;
+            let PowerQty = req.body.PowerQty;
+            let rentDetail = await SQLRentDetail.findOne({ RoomNo: RoomNo });
+            let RentMonthly = rentDetail.dataValues.RentMonthly;
+            let userDetail = await SQLUserDetail.findOne({ UserID: UserID });
+            let TVCost = userDetail.dataValues.TVCost;
+            let payment = await payService.calculatePay( CalculateType, PowerQty, RentMonthly, TVCost)
             let newPayFlow = {
                 UserID: UserID,
                 RoomNo: RoomNo,
-                PowerQty: parseFloat(req.body.PowerQty),
-                Payment: parseFloat(req.body.Payment),
-                TimeOfPayment: moment(TimeOfPayment).toDate(),
+                PowerQty: parseFloat(PowerQty),
+                Payment: payment,
+                TimeOfPayment: null,
                 RentPeriod: moment(RentPeriod).toDate(),
                 CreateUser: req.body.CreateUser,
                 CreateDate: moment().toDate(),
