@@ -24,6 +24,7 @@ module.exports = (db) => {
             return new Promise((resolve, reject) => {
                 db.UserDetail
                     .findAndCountAll({
+                        distinct: true,//避免count在join狀況下出錯
                         where: queryObj,
                         offset: size * (current - 1),
                         limit: size,

@@ -30,6 +30,7 @@ module.exports = (db) => {
             return new Promise((resolve, reject) => {
                 db.RentDetail
                     .findAndCountAll({
+                        distinct: true,
                         where: queryObj,
                         offset: size * (current - 1),
                         limit: size,

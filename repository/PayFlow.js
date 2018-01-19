@@ -75,6 +75,7 @@ module.exports = (db) => {
             return new Promise((resolve, reject) => {
                 db.PayFlow
                     .findOne({
+                        distinct: true,//避免count在join狀況下出錯
                         where: queryObj,
                         include: [
                             {
