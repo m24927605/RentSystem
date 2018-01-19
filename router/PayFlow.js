@@ -81,7 +81,12 @@ module.exports = (app, db) => {
             let RentMonthly = rentDetail.dataValues.RentMonthly;
             let userDetail = await SQLUserDetail.findOne({ UserID: UserID });
             let TVCost = userDetail.dataValues.TVCost;
-            let payment = await payService.calculatePay( CalculateType, PowerQty, RentMonthly, TVCost)
+            let payFlowArray = await SQLPayFlow.findAndCountAll({ UserID: UserID });
+            let payFlowCount=payFlowArray[1];
+            console.log('PowerQty',payFlowArray[0][payFlowCount-1].dataValues.PowerQty);
+            let pastPowerQty = payFlowArray[0][payFlowCount-1].dataValues.PowerQty;
+            let usedPowerQty = PowerQty - pastPowerQty;
+            let payment = await payService.calculatePay(CalculateType, usedPowerQty, RentMonthly, TVCost)
             let newPayFlow = {
                 UserID: UserID,
                 RoomNo: RoomNo,
