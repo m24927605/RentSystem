@@ -136,6 +136,25 @@ module.exports = (app, db) => {
         }
     });
 
+    app.patch('/PayFlow/pay/:id', (req, res) => {
+        try {
+            let id = req.params.id;
+            let updatePayFlow = {
+                TimeOfPayment: moment().toDate()
+            };
+            let queryObj = { ID: id };
+            SQLPayFlow.updateOne(queryObj, updatePayFlow)
+                .then((payFlow) => {
+                    res.status(200).json(payFlow);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("PayFlow", err));
+        }
+    });
+
     app.delete('/PayFlow/:id', (req, res) => {
         try {
             let id = req.params.id;

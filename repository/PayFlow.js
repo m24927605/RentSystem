@@ -35,6 +35,7 @@ module.exports = (db) => {
                     attributes: [
                         [S.col('UserDetail.UserName'),'UserName'],
                         'ID',
+                        'UserID',
                         'PowerQty',
                         'Payment',
                         'TimeOfPayment',
