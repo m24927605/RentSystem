@@ -34,10 +34,10 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 //Relations
-db.UserDetail.belongsTo(db.RentDetail, { foreignKey: 'UserID' });
-db.RentDetail.hasMany(db.UserDetail, { foreignKey: 'UserID' });
-db.PayFlow.belongsTo(db.UserDetail, { foreignKey: 'UserID' });
-db.UserDetail.hasMany(db.PayFlow, { foreignKey: 'UserID' });
+db.UserDetail.belongsTo(db.RentDetail, { foreignKey: 'UserID', targetKey: 'UserID' });
+db.RentDetail.hasMany(db.UserDetail, { foreignKey: 'UserID', sourceKey: 'UserID' });
+db.PayFlow.belongsTo(db.UserDetail, { foreignKey: 'UserID', targetKey: 'UserID' });
+db.UserDetail.hasMany(db.PayFlow, { foreignKey: 'UserID', sourceKey: 'UserID' });
 
 
 module.exports = db;

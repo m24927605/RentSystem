@@ -23,13 +23,13 @@ module.exports = (app, db) => {
         try {
             let UserName = req.query.UserName;
             let queryObj = {};
-            if(UserName){
+            if (UserName) {
                 queryObj = { UserName: UserName };
-            }  
+            }
             let sizePage = +req.params['sizePage'];
             let currentPage = +req.params['currentPage'];
             SQLUserDetail.findAndCountAll(queryObj, sizePage, currentPage)
-                .then(([userDetail,total]) => {
+                .then(([userDetail, total]) => {
                     let resObj = {
                         size: sizePage,
                         current: currentPage,
@@ -65,20 +65,24 @@ module.exports = (app, db) => {
     app.post('/UserDetail', (req, res) => {
         try {
             let Birth = req.body.Birth;
+            if (req.body.Birth) {
+                Birth = moment(req.body.Birth).toDate()
+            }
             let newUser = {
                 RoomID: req.body.RoomID,
                 UserName: req.body.UserName,
-                Birth: moment(Birth).toDate(),
-                Sex:req.body.Sex,
+                Birth: Birth,
+                Sex: req.body.Sex,
                 IDCardNo: req.body.IDCardNo,
                 Phone: req.body.Phone,
-                ContacterPhone: req.body.ContacterPhone,
+                ContactUser:req.body.ContactUser,
+                ContactUserPhone: req.body.ContactUserPhone,
                 Career: req.body.Career,
                 Address: req.body.Address,
                 Email: req.body.Email,
                 LineID: req.body.LineID,
-                CalculateType:req.body.CalculateType,
-                TVCost:req.body.TVCost,
+                CalculateType: req.body.CalculateType,
+                TVCost: req.body.TVCost,
                 CreateUser: req.body.CreateUser,
                 CreateDate: moment().toDate(),
                 ModifyUser: "",
@@ -105,16 +109,17 @@ module.exports = (app, db) => {
                 RoomID: req.body.RoomID,
                 UserName: req.body.UserName,
                 Birth: moment(Birth).toDate(),
-                Sex:req.body.Sex,
+                Sex: req.body.Sex,
                 IDCardNo: req.body.IDCardNo,
                 Phone: req.body.Phone,
-                ContacterPhone: req.body.ContacterPhone,
+                ContactUser:req.body.ContactUser,
+                ContactUserPhone: req.body.ContactUserPhone,
                 Career: req.body.Career,
                 Address: req.body.Address,
                 Email: req.body.Email,
                 LineID: req.body.LineID,
-                TVCost:req.body.TVCost,
-                CalculateType:req.body.CalculateType,
+                TVCost: req.body.TVCost,
+                CalculateType: req.body.CalculateType,
                 ModifyUser: req.body.ModifyUser,
                 ModifyDate: moment().toDate()
             };

@@ -1,17 +1,17 @@
 'use strict'
-module.exports=(sequelize, DataTypes)=>{
+module.exports = (sequelize, DataTypes) => {
   const PayFlow = sequelize.define('PayFlow', {
-    ID: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, unique: true },
-    UserID: { type: DataTypes.INTEGER, allowNull: true, comment: '租客ID' },
-    RoomNo: { type: DataTypes.STRING(20), allowNull: true, comment: '房號' },
-    PowerQty: { type: DataTypes.FLOAT, allowNull: true, comment: '使用度數' },
-    Payment: { type: DataTypes.DECIMAL(18, 0), allowNull: true, comment: '總費用' },
-    TimeOfPayment: { type: DataTypes.DATE, allowNull: true, comment: '繳交時間' },
-    RentPeriod: { type: DataTypes.DATE, allowNull: true, comment: '支付期別' },
-    CreateUser: { type: DataTypes.STRING(20), allowNull: true, comment: '資料創始者' },
-    CreateDate: { type: DataTypes.DATE, allowNull: true, comment: '資料創始日期' },
-    ModifyUser: { type: DataTypes.STRING(20), allowNull: true, comment: '資料調整者' },
-    ModifyDate: { type: DataTypes.DATE, allowNull: true, comment: '資料調整日期' }
+    ID: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, unique: true, field: 'ID' },
+    UserID: { type: DataTypes.INTEGER, allowNull: true, comment: '租客ID', field: 'UserID' },
+    RoomNo: { type: DataTypes.STRING(20), allowNull: true, comment: '房號', field: 'RoomNo' },
+    PowerQty: { type: DataTypes.FLOAT, allowNull: true, comment: '使用度數', field: 'PowerQty' },
+    Payment: { type: DataTypes.DECIMAL(18, 0), allowNull: true, comment: '總費用', field: 'Payment' },
+    TimeOfPayment: { type: DataTypes.DATE, allowNull: true, comment: '繳交時間', field: 'TimeOfPayment' },
+    RentPeriod: { type: DataTypes.DATE, allowNull: true, comment: '支付期別', field: 'RentPeriod' },
+    CreateUser: { type: DataTypes.STRING(20), allowNull: true, comment: '資料創始者', field: 'CreateUser' },
+    CreateDate: { type: DataTypes.DATE, allowNull: true, comment: '資料創始日期', field: 'CreateDate' },
+    ModifyUser: { type: DataTypes.STRING(20), allowNull: true, comment: '資料調整者', field: 'ModifyUser' },
+    ModifyDate: { type: DataTypes.DATE, allowNull: true, comment: '資料調整日期', field: 'ModifyDate' }
   },
     {
       timestamps: false,

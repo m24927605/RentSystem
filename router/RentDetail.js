@@ -77,7 +77,6 @@ module.exports = (app, db) => {
                 RentMonthly: req.body.RentMonthly,
                 EnterDate: moment(EnterDate).toDate(),
                 LeaveDate: moment(LeaveDate).toDate(),
-                Status: req.body.Status,
                 CreateUser: req.body.CreateUser,
                 CreateDate: moment().toDate(),
                 ModifyUser: "",
@@ -111,7 +110,6 @@ module.exports = (app, db) => {
                 RentMonthly: req.body.RentMonthly,
                 EnterDate: moment(EnterDate).toDate(),
                 LeaveDate: moment(LeaveDate).toDate(),
-                Status: req.body.Status,
                 ModifyUser: req.body.ModifyUser,
                 ModifyDate: moment().toDate()
             };
