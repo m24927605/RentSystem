@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
     ContactUserPhone: { type: DataTypes.STRING(20), allowNull: true, comment: '緊急聯絡人手機號碼', field: 'ContactUserPhone' },
     Career: { type: DataTypes.STRING(50), allowNull: true, comment: '職業', field: 'Career' },
     Address: { type: DataTypes.STRING(100), allowNull: true, comment: '住址', field: 'Address' },
-    Email: { type: DataTypes.STRING(100), allowNull: true, comment: '電子信箱', field: 'Email' },
     LineID: { type: DataTypes.STRING(50), allowNull: true, comment: 'LineID', field: 'LineID' },
     CalculateType: { type: DataTypes.INTEGER, allowNull: true, comment: '繳費種類', field: 'CalculateType' },
     TVCost: { type: DataTypes.INTEGER, allowNull: true, comment: '有線電視費用', field: 'TVCost' },
