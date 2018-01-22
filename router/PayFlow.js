@@ -86,7 +86,7 @@ module.exports = (app, db) => {
             let pastPowerQty;
             console.log(payFlowArray);
             if (payFlowCount === 0) {
-                pastPowerQty = 0;
+                pastPowerQty = PowerQty;
             }
             else {
                 pastPowerQty = payFlowArray[0][payFlowCount - 1].dataValues.PowerQty;

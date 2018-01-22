@@ -22,10 +22,10 @@ module.exports = (app, db) => {
     app.get('/RentDetail/:sizePage/:currentPage', (req, res) => {
         try {
             let RoomNo = req.query.RoomNo;
-            let queryObj ={};
-            if(RoomNo){
+            let queryObj = {};
+            if (RoomNo) {
                 queryObj = { RoomNo: RoomNo };
-            }           
+            }
             let sizePage = +req.params['sizePage'];
             let currentPage = +req.params['currentPage'];
             SQLRentDetail.findAndCountAll(queryObj, sizePage, currentPage)
@@ -68,15 +68,29 @@ module.exports = (app, db) => {
             let RentEndDate = req.body.RentEndDate;
             let EnterDate = req.body.EnterDate;
             let LeaveDate = req.body.LeaveDate;
+
+            if (RentStartDate) {
+                RentStartDate = moment(RentStartDate).toDate();
+            }
+            if (RentEndDate) {
+                RentEndDate = moment(RentEndDate).toDate();
+            }
+            if (EnterDate) {
+                EnterDate = moment(EnterDate).toDate();
+            }
+            if (LeaveDate) {
+                LeaveDate = moment(LeaveDate).toDate();
+            }
+
             let newRent = {
                 UserID: req.body.UserID,
                 RoomNo: req.body.RoomNo,
-                RentStartDate: moment(RentStartDate).toDate(),
-                RentEndDate: moment(RentEndDate).toDate(),
+                RentStartDate: RentStartDate,
+                RentEndDate: RentEndDate,
                 PowerUnitCost: req.body.PowerUnitCost,
                 RentMonthly: req.body.RentMonthly,
-                EnterDate: moment(EnterDate).toDate(),
-                LeaveDate: moment(LeaveDate).toDate(),
+                EnterDate: EnterDate,
+                LeaveDate: LeaveDate,
                 CreateUser: req.body.CreateUser,
                 CreateDate: moment().toDate(),
                 ModifyUser: "",
