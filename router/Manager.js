@@ -25,8 +25,14 @@ module.exports = (app, db) => {
             let sizePage = +req.params['sizePage'];
             let currentPage = +req.params['currentPage'];
             SQLManager.findAndCountAll(queryObj, sizePage, currentPage)
-                .then((manager) => {
-                    res.status(200).json(manager);
+                .then(([manager, total]) => {
+                    let resObj = {
+                        size: sizePage,
+                        current: currentPage,
+                        total: total,
+                        data: manager
+                    }
+                    res.status(200).json(resObj);
                 })
                 .catch((error) => {
                     res.status(500).json(errorMessage.moduleSend("sequelize", error));
@@ -61,7 +67,9 @@ module.exports = (app, db) => {
                 CreateUser: req.body.CreateUser,
                 CreateDate: moment().toDate(),
                 ModifyUser: "",
-                ModifyDate: null
+                ModifyDate: null,
+                Status: 1,
+                Role: req.body.Role
             };
             SQLManager.createOne(newManager)
                 .then((manager) => {
@@ -84,7 +92,9 @@ module.exports = (app, db) => {
                 Account: req.body.Account,
                 Password: req.body.Password,
                 ModifyUser: req.body.ModifyUser,
-                ModifyDate: moment().toDate()
+                ModifyDate: moment().toDate(),
+                Status: req.body.Status,
+                Role: req.body.Role
             };
             SQLManager.updateOne(queryObj, updateManager)
                 .then((manager) => {

@@ -85,7 +85,8 @@ module.exports = (app, db) => {
                 CreateUser: req.body.CreateUser,
                 CreateDate: moment().toDate(),
                 ModifyUser: "",
-                ModifyDate: null
+                ModifyDate: null,
+                Status:1
             };
 
             SQLUserDetail.createOne(newUser)
@@ -119,7 +120,8 @@ module.exports = (app, db) => {
                 TVCost: req.body.TVCost,
                 CalculateType: req.body.CalculateType,
                 ModifyUser: req.body.ModifyUser,
-                ModifyDate: moment().toDate()
+                ModifyDate: moment().toDate(),
+                Status:req.body.Status
             };
             let queryObj = { UserID: id };
             SQLUserDetail.updateOne(queryObj, updateUser)
