@@ -22,9 +22,9 @@ module.exports = (app, db) => {
     app.get('/RentDetail/:sizePage/:currentPage', (req, res) => {
         try {
             let RoomNo = req.query.RoomNo;
-            let queryObj = {};
+            let queryObj = {Status: 1};
             if (RoomNo) {
-                queryObj = { RoomNo: RoomNo };
+                queryObj = { RoomNo: RoomNo, Status: 1 };
             }
             let sizePage = +req.params['sizePage'];
             let currentPage = +req.params['currentPage'];
@@ -46,10 +46,29 @@ module.exports = (app, db) => {
         }
     });
 
+    app.get('/RentDetail/NoPage', (req, res) => {
+        try {
+            let RoomNo = req.query.RoomNo;
+            let queryObj = {};
+            if (RoomNo) {
+                queryObj = { RoomNo: RoomNo, Status: 1 };
+            }
+            SQLRentDetail.findAllWhere(queryObj)
+                .then((rentDetail) => {
+                    res.status(200).json(rentDetail);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("RentDetail", err));
+        }
+    });
+
     app.get('/RentDetail/:id', (req, res) => {
         try {
             let id = req.params.id;
-            let queryObj = { RoomID: id };
+            let queryObj = { RoomID: id, Status: 1 };
             SQLRentDetail.findOne(queryObj)
                 .then((rentDetail) => {
                     res.status(200).json(rentDetail);
@@ -94,7 +113,8 @@ module.exports = (app, db) => {
                 CreateUser: req.body.CreateUser,
                 CreateDate: moment().toDate(),
                 ModifyUser: "",
-                ModifyDate: null
+                ModifyDate: null,
+                Status: 1
             };
             SQLRentDetail.createOne(newRent)
                 .then((rentDetail) => {
@@ -115,24 +135,39 @@ module.exports = (app, db) => {
             let RentEndDate = req.body.RentEndDate;
             let EnterDate = req.body.EnterDate;
             let LeaveDate = req.body.LeaveDate;
+            let Status = req.body.Status;
+            if (RentStartDate) {
+                RentStartDate = moment(RentStartDate).toDate();
+            }
+            if (RentEndDate) {
+                RentEndDate = moment(RentEndDate).toDate();
+            }
+            if (EnterDate) {
+                EnterDate = moment(EnterDate).toDate();
+            }
+            if (LeaveDate) {
+                LeaveDate = moment(LeaveDate).toDate();
+                Status = 0;
+            }
             let updateRent = {
                 UserID: req.body.UserID,
                 RoomNo: req.body.RoomNo,
-                RentStartDate: moment(RentStartDate).toDate(),
-                RentEndDate: moment(RentEndDate).toDate(),
+                RentStartDate: RentStartDate,
+                RentEndDate: RentEndDate,
                 PowerUnitCost: req.body.PowerUnitCost,
                 RentMonthly: req.body.RentMonthly,
-                EnterDate: moment(EnterDate).toDate(),
-                LeaveDate: moment(LeaveDate).toDate(),
+                EnterDate: EnterDate,
+                LeaveDate: LeaveDate,
                 ModifyUser: req.body.ModifyUser,
-                ModifyDate: moment().toDate()
+                ModifyDate: moment().toDate(),
+                Status: Status
             };
             let queryObj = { RoomID: id };
             SQLRentDetail.updateOne(queryObj, updateRent)
                 .then((rentDetail) => {
                     res.status(200).json(rentDetail);
                 })
-                .catch((err) => {
+                .catch((error) => {
                     res.status(500).json(errorMessage.moduleSend("sequelize", error));
                 })
         } catch (err) {

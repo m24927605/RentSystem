@@ -26,6 +26,31 @@ module.exports = (db) => {
                     });
             })
         },
+        findAllWhere: (queryObj) => {
+            return new Promise((resolve, reject) => {
+                db.PayFlow
+                    .findAll({
+                        distinct: true,//避免count在join狀況下出錯
+                        where: queryObj,
+                        include: [
+                            {
+                                model: db.UserDetail,
+                                include: [
+                                    {
+                                        model: db.RentDetail
+                                    }
+                                ]
+                            }
+                        ]
+                    })
+                    .then(payFlow => {
+                        resolve(payFlow);
+                    })
+                    .catch((error) => {
+                        reject(new Error(error));
+                    });
+            })
+        },
         findAndCountAll: (queryObj, size, current) => {
             return new Promise((resolve, reject) => {
                 let whereObj = { where: queryObj };
@@ -36,6 +61,7 @@ module.exports = (db) => {
                         [S.col('UserDetail.UserName'),'UserName'],
                         'ID',
                         'UserID',
+                        'UsedPowerQty',
                         'PowerQty',
                         'Payment',
                         'TimeOfPayment',

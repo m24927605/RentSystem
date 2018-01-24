@@ -26,6 +26,31 @@ module.exports = (db) => {
                     });
             })
         },
+        findAllWhere: (queryObj) => {
+            return new Promise((resolve, reject) => {
+                db.RentDetail
+                    .findAll({
+                        where: queryObj,
+                        include: [
+                            {
+                                model: db.UserDetail,
+                                include: [
+                                    {
+                                        model: db.PayFlow
+                                    }
+                                ]
+                            }
+                        ]
+                    })
+                    .then(rentDetail => {
+                        resolve(rentDetail);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        reject(new Error(error));
+                    });
+            })
+        },
         findAndCountAll: (queryObj, size, current) => {
             return new Promise((resolve, reject) => {
                 db.RentDetail

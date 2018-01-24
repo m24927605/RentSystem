@@ -53,6 +53,26 @@ module.exports = (app, db) => {
         }
     });
 
+    app.get('/PayFlow/NoPage', (req, res) => {
+        try {
+            let UserID = +req.query.UserID;
+            let queryObj = {};
+
+            if (UserID) {
+                queryObj = { UserID: UserID };
+            }
+            SQLPayFlow.findAllWhere(queryObj)
+                .then((payFlow) => {
+                    res.status(200).json(payFlow);
+                })
+                .catch((error) => {
+                    res.status(500).json(errorMessage.moduleSend("sequelize", error));
+                })
+        } catch (err) {
+            res.status(500).json(errorMessage.routerSend("PayFlow", err));
+        }
+    });
+
     app.get('/PayFlow/:id', (req, res) => {
         try {
             let id = req.params.id;
@@ -97,6 +117,7 @@ module.exports = (app, db) => {
                 UserID: UserID,
                 RoomNo: RoomNo,
                 PowerQty: parseFloat(PowerQty),
+                UsedPowerQty: parseFloat(usedPowerQty),
                 Payment: payment,
                 TimeOfPayment: null,
                 RentPeriod: moment(RentPeriod).toDate(),

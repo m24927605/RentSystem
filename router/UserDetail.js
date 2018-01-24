@@ -22,9 +22,9 @@ module.exports = (app, db) => {
     app.get('/UserDetail/:sizePage/:currentPage', (req, res) => {
         try {
             let UserName = req.query.UserName;
-            let queryObj = {};
+            let queryObj = { Status: 1 };
             if (UserName) {
-                queryObj = { UserName: UserName };
+                queryObj = { UserName: UserName, Status: 1  };
             }
             let sizePage = +req.params['sizePage'];
             let currentPage = +req.params['currentPage'];
@@ -49,7 +49,7 @@ module.exports = (app, db) => {
     app.get('/UserDetail/:id', (req, res) => {
         try {
             let id = req.params.id;
-            let queryObj = { UserID: id };
+            let queryObj = { UserID: id , Status: 1 };
             SQLUserDetail.findOne(queryObj)
                 .then((userDetail) => {
                     res.status(200).json(userDetail);
