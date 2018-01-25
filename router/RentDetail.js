@@ -48,10 +48,10 @@ module.exports = (app, db) => {
 
     app.get('/RentDetail/NoPage', (req, res) => {
         try {
-            let RoomNo = req.query.RoomNo;
+            let RoomID = req.query.RoomID;
             let queryObj = {};
-            if (RoomNo) {
-                queryObj = { RoomNo: RoomNo, Status: 1 };
+            if (RoomID) {
+                queryObj = { RoomID: RoomID, Status: 1 };
             }
             SQLRentDetail.findAllWhere(queryObj)
                 .then((rentDetail) => {
