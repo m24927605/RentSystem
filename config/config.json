@@ -22,10 +22,10 @@
     "timezone": "+08:00"
   },
   "production": {
-    "username": "sa",
+    "username": "DB_A3362E_Rent_admin",
     "password": "Aa123456",
-    "database": "Rent",
-    "host": "127.0.0.1",
+    "database": "DB_A3362E_Rent",
+    "host": "SQL7004.site4now.net",
     "dialect": "mssql",
     "dialectOptions": {
       "useUTC": false
