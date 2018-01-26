@@ -5,7 +5,8 @@ const routes = [
   require('./UserDetail'),
   require('./PayFlow'),
   require('./Manager'),
-  require('./other')
+  require('./other'),
+  require('./login')
 ];
 
 module.exports = function router(app, db) {

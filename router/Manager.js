@@ -60,10 +60,11 @@ module.exports = (app, db) => {
 
     app.post('/Manager', (req, res) => {
         try {
+            const md5 = require('md5');
             const newManager = {
                 Name: req.body.Name,
                 Account: req.body.Account,
-                Password: req.body.Password,
+                Password: md5(req.body.Password),
                 CreateUser: req.body.CreateUser,
                 CreateDate: moment().toDate(),
                 ModifyUser: "",

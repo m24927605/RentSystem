@@ -7,11 +7,32 @@ const bodyParser = require('body-parser');
 const db = require('./models/index');
 const router = require('./router/index');
 const colors = require('colors');
-const cors=require('cors');
+const cors = require('cors');
+const errorMessage = require('./services/helpers/error')();
+const login = require('./services/login')();
+
 const app = express();
 
 app.use(cors());
 
+//token middleware檢查，除了/login 
+app.use(/^\/(?!(login$)).*/, (req, res, next) => {
+  try {
+    let token = req.headers.token;
+    let decode = login.verifyToken(token);
+    if (decode) {
+      if (req.body) {
+        req.body.Updator = `${decode.Account}`;
+      }
+      next();
+    }
+    else {
+      res.status(403).json(errorMessage.logicSend('decode', 'decode 無資料'));
+    }
+  } catch (error) {
+    res.status(403).json(errorMessage.moduleSend('jsonwebtoken', error));
+  }
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.html', require('ejs').__express);
@@ -33,14 +54,14 @@ db.sequelize.sync().then(() => {
 router(app, db);
 
 // catch 404 and forward to error handler
-app.use((req,res,next)=> {
+app.use((req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use((err,req,res,next)=> {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
