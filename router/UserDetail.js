@@ -22,9 +22,9 @@ module.exports = (app, db) => {
     app.get('/UserDetail/:sizePage/:currentPage', (req, res) => {
         try {
             let UserName = req.query.UserName;
-            let queryObj = { Status: 1 };
+            let queryObj = {};
             if (UserName) {
-                queryObj = { UserName: UserName, Status: 1  };
+                queryObj = { UserName: UserName };
             }
             let sizePage = +req.params['sizePage'];
             let currentPage = +req.params['currentPage'];
@@ -49,7 +49,7 @@ module.exports = (app, db) => {
     app.get('/UserDetail/:id', (req, res) => {
         try {
             let id = req.params.id;
-            let queryObj = { UserID: id , Status: 1 };
+            let queryObj = { UserID: id, Status: 1 };
             SQLUserDetail.findOne(queryObj)
                 .then((userDetail) => {
                     res.status(200).json(userDetail);
@@ -75,7 +75,7 @@ module.exports = (app, db) => {
                 Sex: req.body.Sex,
                 IDCardNo: req.body.IDCardNo,
                 Phone: req.body.Phone,
-                ContactUser:req.body.ContactUser,
+                ContactUser: req.body.ContactUser,
                 ContactUserPhone: req.body.ContactUserPhone,
                 Career: req.body.Career,
                 Address: req.body.Address,
@@ -86,7 +86,7 @@ module.exports = (app, db) => {
                 CreateDate: moment().toDate(),
                 ModifyUser: "",
                 ModifyDate: null,
-                Status:1
+                Status: 1
             };
 
             SQLUserDetail.createOne(newUser)
@@ -112,7 +112,7 @@ module.exports = (app, db) => {
                 Sex: req.body.Sex,
                 IDCardNo: req.body.IDCardNo,
                 Phone: req.body.Phone,
-                ContactUser:req.body.ContactUser,
+                ContactUser: req.body.ContactUser,
                 ContactUserPhone: req.body.ContactUserPhone,
                 Career: req.body.Career,
                 Address: req.body.Address,
@@ -121,7 +121,7 @@ module.exports = (app, db) => {
                 CalculateType: req.body.CalculateType,
                 ModifyUser: req.body.ModifyUser,
                 ModifyDate: moment().toDate(),
-                Status:req.body.Status
+                Status: req.body.Status
             };
             let queryObj = { UserID: id };
             SQLUserDetail.updateOne(queryObj, updateUser)

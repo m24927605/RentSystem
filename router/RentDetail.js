@@ -3,6 +3,7 @@
 module.exports = (app, db) => {
     const moment = require('moment');
     const SQLRentDetail = require('../repository/RentDetail')(db);
+    const SQLUserDetail = require('../repository/UserDetail')(db);
     const errorMessage = require('../services/helpers/error')();
 
     app.get('/RentDetail', (req, res) => {
@@ -22,7 +23,7 @@ module.exports = (app, db) => {
     app.get('/RentDetail/:sizePage/:currentPage', (req, res) => {
         try {
             let RoomNo = req.query.RoomNo;
-            let queryObj = {Status: 1};
+            let queryObj = { Status: 1 };
             if (RoomNo) {
                 queryObj = { RoomNo: RoomNo, Status: 1 };
             }
@@ -136,6 +137,7 @@ module.exports = (app, db) => {
             let EnterDate = req.body.EnterDate;
             let LeaveDate = req.body.LeaveDate;
             let Status = req.body.Status;
+            let userID = req.body.UserID;
             if (RentStartDate) {
                 RentStartDate = moment(RentStartDate).toDate();
             }
@@ -147,6 +149,7 @@ module.exports = (app, db) => {
             }
             if (LeaveDate) {
                 LeaveDate = moment(LeaveDate).toDate();
+                SQLUserDetail.updateOne({ UserID: userID }, { Status: 0 });
                 Status = 0;
             }
             let updateRent = {
