@@ -5,7 +5,7 @@ module.exports = (app, db) => {
     const SQLManager = require('../repository/Manager')(db);
     let errorMessage = require('../services/helpers/error')();
 
-    app.get('/Manager', (req, res) => {
+    app.get('/api/Manager', (req, res) => {
         try {
             SQLManager.findAll()
                 .then((manager) => {
@@ -19,7 +19,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.get('/Manager/:sizePage/:currentPage', (req, res) => {
+    app.get('/api/Manager/:sizePage/:currentPage', (req, res) => {
         try {
             let queryObj = {};
             let sizePage = +req.params['sizePage'];
@@ -42,7 +42,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.get('/Manager/:id', (req, res) => {
+    app.get('/api/Manager/:id', (req, res) => {
         try {
             const id = req.params.id;
             let queryObj = { BackerID: id };
@@ -58,7 +58,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.post('/Manager', (req, res) => {
+    app.post('/api/Manager', (req, res) => {
         try {
             const md5 = require('md5');
             const newManager = {
@@ -84,7 +84,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.patch('/Manager/:id', (req, res) => {
+    app.patch('/api/Manager/:id', (req, res) => {
         try {
             const id = req.params.id;
             let queryObj = { BackerID: id };
@@ -109,7 +109,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.delete('/Manager/:id', (req, res) => {
+    app.delete('/api/Manager/:id', (req, res) => {
         try {
             const id = req.params.id;
             let queryObj = { BackerID: id };

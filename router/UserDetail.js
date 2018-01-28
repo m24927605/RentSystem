@@ -5,7 +5,7 @@ module.exports = (app, db) => {
     const SQLUserDetail = require('../repository/UserDetail')(db);
     const errorMessage = require('../services/helpers/error')();
 
-    app.get('/UserDetail', (req, res) => {
+    app.get('/api/UserDetail', (req, res) => {
         try {
             SQLUserDetail.findAll()
                 .then((userDetail) => {
@@ -19,7 +19,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.get('/UserDetail/:sizePage/:currentPage', (req, res) => {
+    app.get('/api/UserDetail/:sizePage/:currentPage', (req, res) => {
         try {
             let UserName = req.query.UserName;
             let queryObj = {};
@@ -46,7 +46,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.get('/UserDetail/:id', (req, res) => {
+    app.get('/api/UserDetail/:id', (req, res) => {
         try {
             let id = req.params.id;
             let queryObj = { UserID: id, Status: 1 };
@@ -62,7 +62,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.post('/UserDetail', (req, res) => {
+    app.post('/api/UserDetail', (req, res) => {
         try {
             let Birth = req.body.Birth;
             if (req.body.Birth) {
@@ -101,7 +101,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.patch('/UserDetail/:id', (req, res) => {
+    app.patch('/api/UserDetail/:id', (req, res) => {
         try {
             let id = req.params.id;
             let Birth = req.body.Birth;
@@ -136,7 +136,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.delete('/UserDetail/:id', (req, res) => {
+    app.delete('/api/UserDetail/:id', (req, res) => {
         try {
             let queryObj = { UserID: id };
             SQLUserDetail.deleteOne(queryObj)

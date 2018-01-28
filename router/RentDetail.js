@@ -6,7 +6,7 @@ module.exports = (app, db) => {
     const SQLUserDetail = require('../repository/UserDetail')(db);
     const errorMessage = require('../services/helpers/error')();
 
-    app.get('/RentDetail', (req, res) => {
+    app.get('/api/RentDetail', (req, res) => {
         try {
             SQLRentDetail.findAll()
                 .then((rentDetail) => {
@@ -20,7 +20,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.get('/RentDetail/:sizePage/:currentPage', (req, res) => {
+    app.get('/api/RentDetail/:sizePage/:currentPage', (req, res) => {
         try {
             let RoomNo = req.query.RoomNo;
             let queryObj = { Status: 1 };
@@ -47,7 +47,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.get('/RentDetail/NoPage', (req, res) => {
+    app.get('/api/RentDetail/NoPage', (req, res) => {
         try {
             let RoomID = req.query.RoomID;
             let queryObj = {};
@@ -66,7 +66,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.get('/RentDetail/:id', (req, res) => {
+    app.get('/api/RentDetail/:id', (req, res) => {
         try {
             let id = req.params.id;
             let queryObj = { RoomID: id, Status: 1 };
@@ -82,7 +82,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.post('/RentDetail', (req, res) => {
+    app.post('/api/RentDetail', (req, res) => {
         try {
             let RentStartDate = req.body.RentStartDate;
             let RentEndDate = req.body.RentEndDate;
@@ -129,7 +129,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.patch('/RentDetail/:id', (req, res) => {
+    app.patch('/api/RentDetail/:id', (req, res) => {
         try {
             let id = req.params.id;
             let RentStartDate = req.body.RentStartDate;
@@ -178,7 +178,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.delete('/RentDetail/:id', (req, res) => {
+    app.delete('/api/RentDetail/:id', (req, res) => {
         try {
             let id = req.params.id;
             let queryObj = { RoomID: id };

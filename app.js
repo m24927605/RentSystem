@@ -48,7 +48,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //token middleware檢查，除了/login 
-app.use(/^\/(?!(login$)).*/, (req, res, next) => {
+app.use(/^\/api.*/, (req, res, next) => {
   try {
     let token = req.headers.token;
     let decode = login.verifyToken(token);

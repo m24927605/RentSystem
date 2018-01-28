@@ -8,7 +8,7 @@ module.exports = (app, db) => {
     const errorMessage = require('../services/helpers/error')();
     const payService = require('../services/pay')();
 
-    app.get('/PayFlow', (req, res) => {
+    app.get('/api/PayFlow', (req, res) => {
         try {
             SQLPayFlow.findAll()
                 .then((payFlow) => {
@@ -22,7 +22,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.get('/PayFlow/:sizePage/:currentPage', (req, res) => {
+    app.get('/api/PayFlow/:sizePage/:currentPage', (req, res) => {
         try {
             let RoomNo = req.query.RoomNo;
             let UserID = +req.query.UserID;
@@ -53,7 +53,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.get('/PayFlow/NoPage', (req, res) => {
+    app.get('/api/PayFlow/NoPage', (req, res) => {
         try {
             let UserID = +req.query.UserID;
             let queryObj = {};
@@ -73,7 +73,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.get('/PayFlow/:id', (req, res) => {
+    app.get('/api/PayFlow/:id', (req, res) => {
         try {
             let id = req.params.id;
             let queryObj = { ID: id };
@@ -89,7 +89,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.post('/PayFlow', async (req, res) => {
+    app.post('/api/PayFlow', async (req, res) => {
         try {
             let UserID = req.body.UserID;
             let RoomNo = req.body.RoomNo;
@@ -138,7 +138,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.patch('/PayFlow/:id', (req, res) => {
+    app.patch('/api/PayFlow/:id', (req, res) => {
         try {
             let id = req.params.id;
             let UserID = req.body.UserID;
@@ -168,7 +168,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.patch('/PayFlow/pay/:id', (req, res) => {
+    app.patch('/api/PayFlow/pay/:id', (req, res) => {
         try {
             let id = req.params.id;
             let updatePayFlow = {
@@ -189,7 +189,7 @@ module.exports = (app, db) => {
         }
     });
 
-    app.delete('/PayFlow/:id', (req, res) => {
+    app.delete('/api/PayFlow/:id', (req, res) => {
         try {
             let id = req.params.id;
             let queryObj = { ID: id };
