@@ -101,8 +101,6 @@ module.exports = (app, db) => {
             let RentMonthly = userDetail.RentDetail.dataValues.RentMonthly;
             let TVCost = userDetail.dataValues.TVCost;
             let payFlowArray = await SQLPayFlow.findAllWhere({ UserID: UserID });
-            console.log(payFlowArray);
-
             let payFlowCount = payFlowArray.length;
             let pastPowerQty;
             if (payFlowCount === 0) {
