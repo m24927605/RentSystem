@@ -1,0 +1,17 @@
+{
+    "development": {
+        "CHANNEL_ID": "1559780467",
+        "CHANNEL_SECRET": "8ac6a5c3947ba32aecdc26db48926ac8",
+        "CHANNEL_ACCESS_TOKEN": "FhudG7IGrmOLPKdOhjWGeddyv8W+muS49LIcpZ0K7/hfc1zHsAL+57fUhFUXTeJvFupW61ygScxF2+s2B/BPQDoXkdL27v2JcB9c0dazvNXoHaKhYCPL4q9+AL4A44V5u7Eq6taZfdzDfNEPt7p9LgdB04t89/1O/w1cDnyilFU="
+    },
+    "test": {
+        "CHANNEL_ID": "1559780467",
+        "CHANNEL_SECRET": "8ac6a5c3947ba32aecdc26db48926ac8",
+        "CHANNEL_ACCESS_TOKEN": "FhudG7IGrmOLPKdOhjWGeddyv8W+muS49LIcpZ0K7/hfc1zHsAL+57fUhFUXTeJvFupW61ygScxF2+s2B/BPQDoXkdL27v2JcB9c0dazvNXoHaKhYCPL4q9+AL4A44V5u7Eq6taZfdzDfNEPt7p9LgdB04t89/1O/w1cDnyilFU="
+    },
+    "production": {
+        "CHANNEL_ID": "1559780467",
+        "CHANNEL_SECRET": "8ac6a5c3947ba32aecdc26db48926ac8",
+        "CHANNEL_ACCESS_TOKEN": "FhudG7IGrmOLPKdOhjWGeddyv8W+muS49LIcpZ0K7/hfc1zHsAL+57fUhFUXTeJvFupW61ygScxF2+s2B/BPQDoXkdL27v2JcB9c0dazvNXoHaKhYCPL4q9+AL4A44V5u7Eq6taZfdzDfNEPt7p9LgdB04t89/1O/w1cDnyilFU="
+    }
+}

@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www &&　NODE_ENV=production",
-    "go": "npm start"
+    "start": "node ./bin/www"
   },
   "engines": {
     "node": "8.9.3"
@@ -28,5 +27,8 @@
     "pretty-error": "^2.1.1",
     "sequelize": "^4.22.5",
     "serve-favicon": "~2.4.5"
+  },
+  "devDependencies": {
+    "cross-env": "^5.1.3"
   }
 }

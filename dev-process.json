@@ -1,0 +1,36 @@
+{
+  "apps": [
+    {
+      "name": "RentSystemBackend",
+      "cwd": "./",
+      "script": "bin/www",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss.SSS",
+      "log_type": "json",
+      "error_file": "C://LOGS/RentSystemBackend/PM2_log/error/RentSystemBackend_error.log",
+      "out_file": "C://LOGS/RentSystemBackend/PM2_log/log/RentSystemBackend_log.log",
+      "pid_file": "C://LOGS/RentSystemBackend/PM2_log/pid/RentSystemBackend_pid.pid",
+      "instances": 1,
+      "min_uptime": "200s",
+      "max_restarts": 10,
+      "max_memory_restart": "1024M",
+      "watch": true,
+      "ignore_watch": [
+        "node_modules",
+        "log",
+        "logs",
+        "public",
+        "sessions",
+        "SSL"
+      ],
+      "merge_logs": true,
+      "exec_interpreter": "node",
+      "exec_mode": "cluster_mode",
+      "autorestart": true,
+      "vizion": false,
+      "env": {
+        "NODE_ENV": "development",
+        "PORT":"3000"
+      }
+    }
+  ]
+}
