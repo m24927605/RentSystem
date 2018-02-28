@@ -19,6 +19,7 @@ const bot = linebot({
   channelSecret: lineConfig.CHANNEL_SECRET,
   channelAccessToken: lineConfig.CHANNEL_ACCESS_TOKEN
 });
+const linebotParser = bot.parser();
 
 bot.on('message', function (event) {
   event.reply(event.message.text).then(function (data) {
@@ -33,6 +34,7 @@ bot.on('message', function (event) {
 
 const app = express();
 
+app.post('/line', linebotParser);
 app.use(cors());
 
 // view engine setup

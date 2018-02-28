@@ -1,10 +1,10 @@
 'use strict';
 
 const routes = [
-  require('./RentDetail'),
-  require('./UserDetail'),
-  require('./PayFlow'),
-  require('./Manager'),
+  require('./rentDetail'),
+  require('./userDetail'),
+  require('./payFlow'),
+  require('./manager'),
   require('./other'),
   require('./login')
 ];
