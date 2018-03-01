@@ -171,8 +171,8 @@ module.exports = (app, db) => {
             let id = req.params.id;
             let updatePayFlow = {
                 TimeOfPayment: moment().toDate(),
-                ModifyUser:req.body.ModifyUser,
-                ModifyDate:moment().toDate()
+                ModifyUser: req.body.ModifyUser,
+                ModifyDate: moment().toDate()
             };
             let queryObj = { ID: id };
             SQLPayFlow.updateOne(queryObj, updatePayFlow)
