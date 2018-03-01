@@ -2,7 +2,7 @@
 
 module.exports = (app, db) => {
     const moment = require('moment');
-    const SQLUserDetail = require('../repository/UserDetail')(db);
+    const SQLUserDetail = require('../repository/userDetail')(db);
     const errorMessage = require('../services/helpers/error')();
 
     app.get('/api/UserDetail', (req, res) => {

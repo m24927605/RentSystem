@@ -2,7 +2,7 @@
 
 module.exports = (app, db) => {
     const moment = require('moment');
-    const SQLManager = require('../repository/Manager')(db);
+    const SQLManager = require('../repository/manager')(db);
     let errorMessage = require('../services/helpers/error')();
 
     app.get('/api/Manager', (req, res) => {

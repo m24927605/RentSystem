@@ -2,9 +2,9 @@
 
 module.exports = (app, db) => {
     const moment = require('moment');
-    const SQLPayFlow = require('../repository/PayFlow')(db);
-    const SQLRentDetail = require('../repository/RentDetail')(db);
-    const SQLUserDetail = require('../repository/UserDetail')(db);
+    const SQLPayFlow = require('../repository/payFlow')(db);
+    const SQLRentDetail = require('../repository/rentDetail')(db);
+    const SQLUserDetail = require('../repository/userDetail')(db);
     const errorMessage = require('../services/helpers/error')();
     const payService = require('../services/pay')();
 

@@ -2,8 +2,8 @@
 
 module.exports = (app, db) => {
     const moment = require('moment');
-    const SQLRentDetail = require('../repository/RentDetail')(db);
-    const SQLUserDetail = require('../repository/UserDetail')(db);
+    const SQLRentDetail = require('../repository/rentDetail')(db);
+    const SQLUserDetail = require('../repository/userDetail')(db);
     const errorMessage = require('../services/helpers/error')();
 
     app.get('/api/RentDetail', (req, res) => {
